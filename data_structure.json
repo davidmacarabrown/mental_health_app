@@ -1,0 +1,41 @@
+USER:
+
+{
+"id": <LONG>,
+"character": {
+              "username": <STRING>,
+              "level": <INT>,
+              "XP": <INT>,
+              "health": <INT>,
+              "stamina": <INT>,
+              "tasks": [
+                        {
+                          "task-name": <STRING>,
+                         "description": <STRING>,
+                          "complete": <BOOL>
+                        },
+                         {
+                           "task-name": <STRING>,
+                           "description": <STRING>,
+                            "complete": <BOOL>
+                          }
+                        ]
+                      }
+}
+
+
+NUMBERS:
+{
+  [
+    {
+      "name": <STRING>,
+    "number": <INT>
+     },
+     {
+       "name": <STRING>,
+     "number": <INT>
+    }
+
+
+  ]
+}
