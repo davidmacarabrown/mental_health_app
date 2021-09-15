@@ -4,9 +4,6 @@ import org.springframework.data.annotation.Id;
 
 public class Task {
 
-    @Id
-    private String id;
-
     private String name;
 
     private String description;
@@ -20,13 +17,6 @@ public class Task {
         this.completed = completed;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

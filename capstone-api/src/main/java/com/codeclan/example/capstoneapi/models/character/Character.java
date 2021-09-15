@@ -3,6 +3,7 @@ package com.codeclan.example.capstoneapi.models.character;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Character {
 
@@ -17,9 +18,9 @@ public class Character {
 
     private int health;
 
-    private ArrayList<Task> tasks;
+    private List<Task> tasks;
 
-    public Character(String username, int level, int xp, int health, ArrayList<Task> tasks) {
+    public Character(String username, int level, int xp, int health) {
         this.username = username;
         this.level = level;
         this.xp = xp;
@@ -69,11 +70,11 @@ public class Character {
         this.health = health;
     }
 
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+    public boolean addTask(Task newTask){
+        return this.tasks.add(newTask);
     }
 }
