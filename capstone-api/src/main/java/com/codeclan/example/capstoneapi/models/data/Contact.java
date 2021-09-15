@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 public class Contact {
 
+    //mongoDB ID must be a String not Long
     @Id
     private String id;
 

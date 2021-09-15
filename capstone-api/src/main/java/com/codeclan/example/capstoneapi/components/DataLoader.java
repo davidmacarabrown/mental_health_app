@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements ApplicationRunner {
 
     @Autowired
-    ContactRepository contactRepository;
+    ContactRepository contactRepository; //import the contactRepository
 
-    public DataLoader(){}
+    public DataLoader(){} //empty constructor
 
     public void run(ApplicationArguments args){
 

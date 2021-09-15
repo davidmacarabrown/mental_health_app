@@ -16,6 +16,7 @@ public class ContactController {
     @Autowired
     ContactRepository contactRepository;
 
+    //get all contacts
     @GetMapping(value = "/contacts")
         public ResponseEntity<List<Contact>> getAllContacts(){
         return new ResponseEntity<>(contactRepository.findAll(), HttpStatus.OK);
