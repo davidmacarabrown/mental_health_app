@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 //CHARACTER
-//TODO /characters post mapping
+//[DONE]characters post mapping
 //TODO /characters/{id} put mapping
 //TODO /characters/{id} delete mapping
 
@@ -24,19 +24,24 @@ public class CharacterController {
     @Autowired
     CharacterRepository characterRepository;
 
-    @PostMapping(value = "/characters") //RequestBody
+    @PostMapping(value = "/characters")
+    //create response entity variable & take new Character object from the RequestBody
     public ResponseEntity<Character> saveNewCharacter(@RequestBody Character character){
+        //insert character into MongoDB and return the character with its ID
         characterRepository.save(character);
         return new ResponseEntity<>(character, HttpStatus.CREATED);
     }
 
-    @GetMapping(value= "/characters")
-    public ResponseEntity getAllCharacters(){
-        return new ResponseEntity(characterRepository.findAll(), HttpStatus.OK);
+    @DeleteMapping(value = "/characters/{id}")
+    // question mark means an empty response entity can be sent back with just the HTTP Status
+    public ResponseEntity<?> deleteCharacter(@PathVariable String id){
+        characterRepository.deleteById(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
+    //returns character by their unique ID
     @GetMapping(value= "/characters/{id}")
-        public ResponseEntity getCharacterByUsername(@PathVariable String id){
+        public ResponseEntity getCharacterById(@PathVariable String id){
             return new ResponseEntity(characterRepository.findById(id), HttpStatus.OK);
     }
 }
