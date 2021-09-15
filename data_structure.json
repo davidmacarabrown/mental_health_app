@@ -29,13 +29,9 @@ NUMBERS:
   [
     {
       "name": <STRING>,
-    "number": <INT>
-     },
-     {
-       "name": <STRING>,
-     "number": <INT>
-    }
-
-
+      "description": <STRING>,
+    "number": <INT>,
+    "email": <STRING>
+     }
   ]
 }
