@@ -1,8 +1,8 @@
 USER:
 
 {
-"id": <LONG>,
 "character": {
+              "id": <STRING>,
               "username": <STRING>,
               "level": <INT>,
               "XP": <INT>,

@@ -1,6 +1,6 @@
 package com.codeclan.example.capstoneapi.components;
 
-import com.codeclan.example.capstoneapi.controllers.ContactController;
+
 import com.codeclan.example.capstoneapi.models.data.Contact;
 import com.codeclan.example.capstoneapi.repositories.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
