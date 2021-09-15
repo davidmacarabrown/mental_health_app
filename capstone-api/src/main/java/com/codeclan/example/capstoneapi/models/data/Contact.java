@@ -11,11 +11,11 @@ public class Contact {
 
     private String description;
 
-    private int number;
+    private Long number;
 
     private String email;
 
-    public Contact(String name, String description, int number, String email){
+    public Contact(String name, String description, Long number, String email){
         this.name = name;
         this.description = description;
         this.number = number;
@@ -47,11 +47,11 @@ public class Contact {
         this.description = description;
     }
 
-    public int getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 

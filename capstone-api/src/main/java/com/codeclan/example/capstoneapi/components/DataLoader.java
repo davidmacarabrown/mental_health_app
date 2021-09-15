@@ -20,8 +20,13 @@ public class DataLoader implements ApplicationRunner {
 
         //methods go here
 
-        Contact contactOne = new Contact("Helpline", "please call us for help", 1234567890, "appagandomate@gmail.com");
+        contactRepository.deleteAll();
+
+        Contact contactOne = new Contact("Helpline", "please call us for help", 1234567890L, "appagandomate@gmail.com");
         contactRepository.save(contactOne);
+
+        Contact contactTwo = new Contact("another helpline", "call if you need any assistance", 1122334455L, "asdf@helpme.com");
+        contactRepository.save(contactTwo);
     }
 
 }
