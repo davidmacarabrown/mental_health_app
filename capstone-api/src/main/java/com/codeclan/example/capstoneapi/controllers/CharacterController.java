@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 //TASKS - POSSIBLE ROUTES?
 //TODO /characters/{id}/tasks - get all tasks?
-//TODO /characters/{id}/tasks/{id} - post mapping
+//TODO /characters/{id}/tasks/ - post mapping return whole object with the new ID
 //TODO /characters/{id}/tasks/{id} - delete mapping
-//TODO /characters/{id}/tasks/{id} - put mapping
+//TODO /characters/{id}/tasks/{id} - put mapping use
 
 @RestController
 public class CharacterController {

@@ -1,8 +1,10 @@
 package com.codeclan.example.capstoneapi.models.character;
 
-import org.springframework.data.annotation.Id;
+import org.bson.types.ObjectId;
 
 public class Task {
+
+    private String id;
 
     private String name;
 
@@ -12,11 +14,13 @@ public class Task {
 
 
     public Task(String name, String description, Boolean completed) {
+        this.id = new ObjectId().toString();
         this.name = name;
         this.description = description;
         this.completed = completed;
     }
 
+    public Task(){}
 
     public String getName() {
         return name;
@@ -40,5 +44,9 @@ public class Task {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public String getId(){
+        return this.id;
     }
 }

@@ -41,9 +41,12 @@ public class DataLoader implements ApplicationRunner {
 
         //CREATING TASK
         Task taskOne = new Task("Finish the project", "you have to do it alone mate no one is gonna help you see ya", false);
-        characterOne.addTask(taskOne);
+        Task taskTwo = new Task("work on the back end", "come on your server is scuffed you have to fix it", false);
 
-        //SAVING CHARACTER
+
+
+        characterOne.addTask(taskOne);
+        characterOne.addTask(taskTwo);
         characterRepository.save(characterOne);
     }
 
