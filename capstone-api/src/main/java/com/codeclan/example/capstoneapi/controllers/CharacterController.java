@@ -1,12 +1,11 @@
 package com.codeclan.example.capstoneapi.controllers;
 
+import com.codeclan.example.capstoneapi.models.character.Character;
 import com.codeclan.example.capstoneapi.repositories.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //CHARACTER
 //TODO /characters post mapping
@@ -24,6 +23,12 @@ public class CharacterController {
 
     @Autowired
     CharacterRepository characterRepository;
+
+    @PostMapping(value = "/characters") //RequestBody
+    public ResponseEntity<Character> saveNewCharacter(@RequestBody Character character){
+        characterRepository.save(character);
+        return new ResponseEntity<>(character, HttpStatus.CREATED);
+    }
 
     @GetMapping(value= "/characters")
     public ResponseEntity getAllCharacters(){
