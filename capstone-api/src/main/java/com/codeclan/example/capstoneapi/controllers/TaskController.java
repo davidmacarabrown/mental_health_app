@@ -28,9 +28,9 @@ public class TaskController {
     }
 
     @DeleteMapping(value = "users/{id}/tasks/{id}")
-    public ResponseEntity deleteTaskByName(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteTaskByName(@PathVariable Long id) {
         taskRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
     }
 
     @PatchMapping(value = "/users/{id}/tasks/{id}")
@@ -39,7 +39,3 @@ public class TaskController {
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 }
-
-//userID
-//task(JSON)
-

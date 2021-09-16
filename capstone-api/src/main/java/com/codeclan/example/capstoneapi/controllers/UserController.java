@@ -40,9 +40,16 @@ public class UserController {
     }
 
     //update User by ID
-    @PatchMapping(value = "/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User updatedUser){
+    @PatchMapping(value = "/users/{id}") //find One byID first, set each property, then insert
+    public ResponseEntity<User> updateUser(
+            @PathVariable Long id,
+            @RequestBody User updatedUser){
+        User foundUser = userRepository.findById(id).get();
+        foundUser.setHealth(updatedUser.getHealth());
+        foundUser.setLevel(updatedUser.getLevel());
+        foundUser.getUsername(updatedUser.getUsername());
+        
         userRepository.save(updatedUser);
-        return new ResponseEntity(updatedUser, HttpStatus.OK);
+        return new ResponseEntity(updatedUser, HttpStatus.OK); //
     }
 }
