@@ -50,4 +50,8 @@ public class AppData {
     public void setXpReward(int xpReward) {
         this.xpReward = xpReward;
     }
+    
+    //TODO calculate next level
+    //take current level, apply multiplier and return new level
+    
 }

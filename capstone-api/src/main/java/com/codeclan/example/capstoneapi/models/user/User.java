@@ -87,4 +87,14 @@ public class User {
     public boolean addTask(Task newTask){
         return this.tasks.add(newTask);
     }
+
+    //TODO method to implement level checking and increase XP, or if level will be maxed out
+    //on completion of task:
+    //check the remaining XP to next level (if <xp to next level === value of one task's XP>
+    //if the task will max out the level:
+    //set the level to level += 1
+    //set the current XP back to zero
+    //else:
+    //increment the XP by the value of one task XP
+    
 }
