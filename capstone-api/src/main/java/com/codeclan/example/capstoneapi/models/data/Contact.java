@@ -22,13 +22,16 @@ public class Contact {
     @Column(name="email")
     private String email;
 
-    public Contact(Long id, String organisation, String description, Long number, String email){
-        this.id = id;
+    //TODO research default values setting them to null
+
+    public Contact(String organisation, String description, Long number, String email){
         this.organisation = organisation;
         this.description = description;
         this.number = number;
         this.email = email;
     }
+
+    public Contact(){}
 
     public String getName() {
         return organisation;
@@ -60,5 +63,13 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
