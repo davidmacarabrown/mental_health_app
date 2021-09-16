@@ -1,4 +1,4 @@
-package com.codeclan.example.capstoneapi.models.character;
+package com.codeclan.example.capstoneapi.models.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

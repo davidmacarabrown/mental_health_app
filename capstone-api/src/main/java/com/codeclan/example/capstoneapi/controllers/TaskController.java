@@ -1,13 +1,13 @@
 package com.codeclan.example.capstoneapi.controllers;
 
-import com.codeclan.example.capstoneapi.models.character.Task;
+import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
+
 import java.util.List;
 
 @RestController
@@ -36,6 +36,6 @@ public class TaskController {
     @PatchMapping(value = "/characters/{id}/tasks/{id}")
     public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask){
         taskRepository.save(updatedTask);
-        return new ResponseEntity<>(updatedTask, HttpStatus.OK;
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 }

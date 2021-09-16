@@ -1,5 +1,6 @@
 package com.codeclan.example.capstoneapi.controllers;
 
+import com.codeclan.example.capstoneapi.models.user.Character;
 import com.codeclan.example.capstoneapi.repositories.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,14 +25,14 @@ public class CharacterController {
 
     //returns character by their unique ID
     @GetMapping(value= "/characters/{id}")
-    public ResponseEntity getCharacterById(@PathVariable String id){
+    public ResponseEntity<Character> getCharacterById(@PathVariable Long id){
         return new ResponseEntity(characterRepository.findById(id), HttpStatus.OK);
     }
 
     //deletes character by ID
     @DeleteMapping(value = "/characters/{id}")
     // question mark means an empty response entity can be sent back with just the HTTP Status
-    public ResponseEntity deleteCharacter(@PathVariable String id){
+    public ResponseEntity deleteCharacter(@PathVariable Long id){
         characterRepository.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
