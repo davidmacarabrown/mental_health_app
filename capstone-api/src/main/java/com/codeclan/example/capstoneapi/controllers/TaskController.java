@@ -33,10 +33,9 @@ public class TaskController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @PatchMapping(value = "/characters/{id}/tasks/{id}")
     public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask){
         taskRepository.save(updatedTask);
-        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK;
     }
 }

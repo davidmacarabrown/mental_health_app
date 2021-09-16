@@ -9,13 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CharacterController {
 
-    //[DONE]characters post mapping
-    //[DONE] /characters/{id} put mapping
-    //[DONE] /characters/{id} delete mapping
-    
-    //TASKS - POSSIBLE ROUTES?
-    
-    
     @Autowired
     CharacterRepository characterRepository;
 
@@ -38,14 +31,14 @@ public class CharacterController {
     //deletes character by ID
     @DeleteMapping(value = "/characters/{id}")
     // question mark means an empty response entity can be sent back with just the HTTP Status
-    public ResponseEntity<?> deleteCharacter(@PathVariable String id){
+    public ResponseEntity deleteCharacter(@PathVariable String id){
         characterRepository.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     //update character by ID
     @PutMapping(value = "/characters/{id}")
-    public ResponseEntity<?> updateCharacter(@RequestBody Character updatedCharacter){
+    public ResponseEntity updateCharacter(@RequestBody Character updatedCharacter){
         characterRepository.save(updatedCharacter);
         return new ResponseEntity(HttpStatus.OK);
     }
