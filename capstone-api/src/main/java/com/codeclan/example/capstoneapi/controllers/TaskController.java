@@ -43,7 +43,6 @@ public class TaskController {
         foundTask.setName(updatedTask.getName());
         foundTask.setDescription(updatedTask.getDescription());
         foundTask.setCompleted(updatedTask.getCompleted());
-        foundTask.setUser(updatedTask.getUser());
 
         taskRepository.save(updatedTask);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
