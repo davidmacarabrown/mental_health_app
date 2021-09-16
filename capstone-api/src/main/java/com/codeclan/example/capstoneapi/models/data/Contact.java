@@ -1,16 +1,22 @@
 package com.codeclan.example.capstoneapi.models.data;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name="contacts")
 public class Contact {
 
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
 
+    @Column(name="description")
     private String description;
 
+    @Column(name="number")
     private Long number;
 
+    @Column(name="email")
     private String email;
 
     public Contact(String name, String description, Long number, String email){
@@ -19,9 +25,6 @@ public class Contact {
         this.number = number;
         this.email = email;
     }
-
-
-
 
     public String getName() {
         return name;

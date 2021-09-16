@@ -33,16 +33,16 @@ public class UserController {
 
     //deletes User by ID
     @DeleteMapping(value = "/users/{id}")
-    // question mark means an empty response entity can be sent back with just the HTTP Status
+    // question mark means an empty response entity can be sent back with just the HTTP Status?
     public ResponseEntity deleteUser(@PathVariable Long id){
         userRepository.deleteById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     //update User by ID
-    @PutMapping(value = "/users/{id}")
-    public ResponseEntity updateUser(@RequestBody User updatedUser){
+    @PatchMapping(value = "/users/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User updatedUser){
         userRepository.save(updatedUser);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(updatedUser, HttpStatus.OK);
     }
 }

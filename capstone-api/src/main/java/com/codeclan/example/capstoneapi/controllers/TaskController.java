@@ -16,24 +16,24 @@ public class TaskController {
     @Autowired
     TaskRepository taskRepository;
 
-    @GetMapping(value = "/characters/{id}/tasks")
+    @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
-        return new ResponseEntity<>(taskRepository.findByCharacterId(id), HttpStatus.OK);
+        return new ResponseEntity<>(taskRepository.findByUserId(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/characters/{id}/tasks")
+    @PostMapping(value = "/users/{id}/tasks")
     public ResponseEntity<Task> saveTask(@RequestBody Task task){
         taskRepository.save(task);
         return new ResponseEntity<>(task, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "characters/{id}/tasks")
-    public ResponseEntity deleteTaskByName(@PathVariable String name) {
-        taskRepository.deleteByName(name);
+    @DeleteMapping(value = "users/{id}/tasks/{id}")
+    public ResponseEntity deleteTaskByName(@PathVariable Long id) {
+        taskRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/characters/{id}/tasks/{id}")
+    @PatchMapping(value = "/users/{id}/tasks/{id}")
     public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask){
         taskRepository.save(updatedTask);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);

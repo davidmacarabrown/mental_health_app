@@ -24,15 +24,15 @@ public class Task {
 
     @ManyToOne
     @JsonIgnoreProperties({"task"})
-    @JoinColumn(name = "character_id", nullable = false)
-    private Character character;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
-    public Task(String name, String description, Boolean completed, Character character) {
+    public Task(String name, String description, Boolean completed, User user) {
         this.name = name;
         this.description = description;
         this.completed = completed;
-        this.character = character;
+        this.user = user;
     }
 
     public Task(){}
@@ -69,11 +69,11 @@ public class Task {
         this.id = id;
     }
 
-    public Character getCharacter() {
-        return character;
+    public User getUser() {
+        return user;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

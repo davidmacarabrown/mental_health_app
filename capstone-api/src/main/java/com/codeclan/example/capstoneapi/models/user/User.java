@@ -26,8 +26,8 @@ public class User {
     @Column(name = "health")
     private int health;
 
-    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"character"})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"user"})
     private List<Task> tasks;
 
     public User(String username, int level, int xp, int health) {
