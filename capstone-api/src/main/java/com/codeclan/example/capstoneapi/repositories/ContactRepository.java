@@ -1,4 +1,6 @@
 package com.codeclan.example.capstoneapi.repositories;
 
-public interface ContactRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ContactRepository extends JpaRepository {
 }

@@ -1,22 +1,33 @@
 package com.codeclan.example.capstoneapi.models.character;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
+@Table(name = "characters")
 public class Character {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id;
-
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "level")
     private int level;
 
+    @Column(name = "xp")
     private int xp;
 
+    @Column(name = "health")
     private int health;
 
+    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"character"})
     private List<Task> tasks;
 
     public Character(String username, int level, int xp, int health) {
@@ -29,11 +40,11 @@ public class Character {
 
     public Character(){};
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

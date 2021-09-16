@@ -1,20 +1,38 @@
 package com.codeclan.example.capstoneapi.models.character;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
     private String name;
 
+    @Column(name= "description")
     private String description;
 
+    @Column(name = "completed")
     private Boolean completed;
 
+    @ManyToOne
+    @JsonIgnoreProperties("task")
+    @JoinColumn(name = "character_id")
+    private Character character;
 
-    public Task(String name, String description, Boolean completed) {
+
+    public Task(String name, String description, Boolean completed, Character character) {
         this.name = name;
         this.description = description;
         this.completed = completed;
+        this.character = character;
     }
 
     public Task(){}
@@ -43,7 +61,19 @@ public class Task {
         this.completed = completed;
     }
 
-    public String getId(){
+    public Long getId(){
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 }
