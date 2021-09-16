@@ -7,12 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
-
-//TODO /characters/{id}/tasks - post mapping
-//TODO /characters/{id}/tasks - put mapping use (request body with JSON)
-
-//TODO /characters/{id}/tasks/{id} - delete mapping
 
 @RestController
 public class TaskController {
@@ -32,9 +28,9 @@ public class TaskController {
     }
 
     @DeleteMapping(value = "characters/{id}/tasks")
-    public ResponseEntity<List<Task>> deleteTaskByName(@PathVariable String name) {
+    public ResponseEntity deleteTaskByName(@PathVariable String name) {
         taskRepository.deleteByName(name);
-        return new ResponseEntity<>(name, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
