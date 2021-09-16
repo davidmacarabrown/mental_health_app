@@ -8,7 +8,10 @@ public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String name;
+    private Long id;
+
+    @Column(name="organisation", nullable = false)
+    private String organisation;
 
     @Column(name="description")
     private String description;
@@ -19,19 +22,20 @@ public class Contact {
     @Column(name="email")
     private String email;
 
-    public Contact(String name, String description, Long number, String email){
-        this.name = name;
+    public Contact(Long id, String organisation, String description, Long number, String email){
+        this.id = id;
+        this.organisation = organisation;
         this.description = description;
         this.number = number;
         this.email = email;
     }
 
     public String getName() {
-        return name;
+        return organisation;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.organisation = name;
     }
 
     public String getDescription() {
