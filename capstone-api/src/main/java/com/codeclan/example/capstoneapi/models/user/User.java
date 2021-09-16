@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "characters")
-public class Character {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Character {
     @JsonIgnoreProperties({"character"})
     private List<Task> tasks;
 
-    public Character(String username, int level, int xp, int health) {
+    public User(String username, int level, int xp, int health) {
         this.username = username;
         this.level = level;
         this.xp = xp;
@@ -38,7 +38,7 @@ public class Character {
         this.tasks = new ArrayList<>();
     }
 
-    public Character(){};
+    public User(){};
 
     public Long getId() {
         return id;

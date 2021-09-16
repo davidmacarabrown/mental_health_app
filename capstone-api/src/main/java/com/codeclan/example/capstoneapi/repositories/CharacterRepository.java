@@ -1,7 +1,0 @@
-package com.codeclan.example.capstoneapi.repositories;
-
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CharacterRepository extends JpaRepository <Character, Long> {
-}
