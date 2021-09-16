@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 //CHARACTER
 //[DONE]characters post mapping
-//TODO /characters/{id} put mapping
+//[DONE] /characters/{id} put mapping
 //[DONE] /characters/{id} delete mapping
 
 //TASKS - POSSIBLE ROUTES?
@@ -31,10 +31,10 @@ public class CharacterController {
     //creates new character in DB
     @PostMapping(value = "/characters")
     //create response entity variable & take new Character object from the RequestBody
-    public ResponseEntity<Character> saveNewCharacter(@RequestBody Character character){
+    public ResponseEntity<Character> saveNewCharacter(@RequestBody Character newCharacter){
         //insert character into MongoDB and return the character with its ID
-        characterRepository.save(character);
-        return new ResponseEntity<>(character, HttpStatus.CREATED);
+        characterRepository.save(newCharacter);
+        return new ResponseEntity<>(newCharacter, HttpStatus.CREATED);
     }
 
     //returns character by their unique ID
@@ -51,8 +51,12 @@ public class CharacterController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
-
+    //update character by ID
+    @PutMapping(value = "/characters/{id}")
+    public ResponseEntity<?> updateCharacter(@RequestBody Character updatedCharacter){
+        characterRepository.save(updatedCharacter);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     //TASK ROUTES
 }
