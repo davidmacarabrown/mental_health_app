@@ -10,17 +10,17 @@ public class AppData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="startingXp")
-    private int startingXp;
+    @Column(name="levelOneXp")
+    private double levelOneXp;
 
     @Column(name="xpMultiplier")
     private double xpMultiplier;
 
     @Column(name="xpReward")
-    private int xpReward;
+    private double xpReward;
 
-    public AppData( int startingXp, double xpMultiplier, int xpReward) {
-        this.startingXp = startingXp;
+    public AppData( double levelOneXp, double xpMultiplier, double xpReward) {
+        this.levelOneXp = levelOneXp;
         this.xpMultiplier = xpMultiplier;
         this.xpReward = xpReward;
     }
@@ -43,15 +43,24 @@ public class AppData {
         this.xpMultiplier = xpMultiplier;
     }
 
-    public int getXpReward() {
+    public double getXpReward() {
         return xpReward;
     }
 
     public void setXpReward(int xpReward) {
         this.xpReward = xpReward;
     }
-    
-    //TODO calculate next level
-    //take current level, apply multiplier and return new level
-    
+
+    public double getLevelOneXp() {
+        return levelOneXp;
+    }
+
+    public void setLevelOneXp(int levelOneXp) {
+        this.levelOneXp = levelOneXp;
+    }
+
+    public double calculateNextLevelXP(double currentLevel){
+        return currentLevel * this.xpMultiplier;
+    }
+
 }

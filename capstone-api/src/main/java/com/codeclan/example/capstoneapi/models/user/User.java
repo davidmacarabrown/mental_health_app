@@ -89,6 +89,7 @@ public class User {
     }
 
     //TODO method to implement level checking and increase XP, or if level will be maxed out
+    //MASSIVE ASTERISK - only works if task XP value is always the same and is a derivative of level xp
     //on completion of task:
     //check the remaining XP to next level (if <xp to next level === value of one task's XP>
     //if the task will max out the level:
@@ -96,5 +97,5 @@ public class User {
     //set the current XP back to zero
     //else:
     //increment the XP by the value of one task XP
-    
+
 }
