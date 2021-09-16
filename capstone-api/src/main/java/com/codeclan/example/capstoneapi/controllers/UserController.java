@@ -44,11 +44,15 @@ public class UserController {
     public ResponseEntity<User> updateUser(
             @PathVariable Long id,
             @RequestBody User updatedUser){
+
         User foundUser = userRepository.findById(id).get();
+
         foundUser.setHealth(updatedUser.getHealth());
         foundUser.setLevel(updatedUser.getLevel());
-        foundUser.getUsername(updatedUser.getUsername());
-        
+        foundUser.setUsername(updatedUser.getUsername());
+        foundUser.setXp(updatedUser.getXp());
+        foundUser.setHealth(updatedUser.getHealth());
+
         userRepository.save(updatedUser);
         return new ResponseEntity(updatedUser, HttpStatus.OK); //
     }
