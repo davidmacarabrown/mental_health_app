@@ -3,19 +3,29 @@ package com.codeclan.example.capstoneapi.models.data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="data")
+@Table(name="appdata")
 public class AppData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="xp-multiplier")
-    private double xpIncrement;
+    @Column(name="startingXp")
+    private int startingXp;
 
-    public AppData(double xpIncrement) {
-        this.xpIncrement = xpIncrement;
+    @Column(name="xpMultiplier")
+    private double xpMultiplier;
+
+    @Column(name="xpReward")
+    private int xpReward;
+
+    public AppData( int startingXp, double xpMultiplier, int xpReward) {
+        this.startingXp = startingXp;
+        this.xpMultiplier = xpMultiplier;
+        this.xpReward = xpReward;
     }
+
+    public AppData(){}
 
     public Long getId() {
         return id;
@@ -25,11 +35,19 @@ public class AppData {
         this.id = id;
     }
 
-    public double getXpIncrement() {
-        return xpIncrement;
+    public double getXpMultiplier() {
+        return xpMultiplier;
     }
 
-    public void setXpIncrement(double xpIncrement) {
-        this.xpIncrement = xpIncrement;
+    public void setXpMultiplier(double xpMultiplier) {
+        this.xpMultiplier = xpMultiplier;
+    }
+
+    public int getXpReward() {
+        return xpReward;
+    }
+
+    public void setXpReward(int xpReward) {
+        this.xpReward = xpReward;
     }
 }
