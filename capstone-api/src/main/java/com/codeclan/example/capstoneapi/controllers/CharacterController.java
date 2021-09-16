@@ -14,12 +14,7 @@ public class CharacterController {
     //[DONE] /characters/{id} delete mapping
     
     //TASKS - POSSIBLE ROUTES?
-    //TODO /characters/{id}/tasks - get all tasks?
     
-    //TODO /characters/{id}/tasks - post mapping return whole object with the new ID
-    //TODO /characters/{id}/tasks - put mapping use (request body with JSON)
-    
-    //TODO /characters/{id}/tasks/{id} - delete mapping
     
     @Autowired
     CharacterRepository characterRepository;

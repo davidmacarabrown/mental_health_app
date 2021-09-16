@@ -23,8 +23,8 @@ public class Task {
     private Boolean completed;
 
     @ManyToOne
-    @JsonIgnoreProperties("task")
-    @JoinColumn(name = "character_id")
+    @JsonIgnoreProperties({"task"})
+    @JoinColumn(name = "character_id", nullable = false)
     private Character character;
 
 
