@@ -34,7 +34,17 @@ public class TaskController {
     }
 
     @PatchMapping(value = "/users/{id}/tasks/{id}")
-    public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask){
+    public ResponseEntity<Task> updateTask(
+            @PathVariable Long id,
+            @RequestBody Task updatedTask){
+
+        Task foundTask = taskRepository.findById(id).get();
+
+        foundTask.setName(updatedTask.getName());
+        foundTask.setDescription(updatedTask.getDescription());
+        foundTask.setCompleted(updatedTask.getCompleted());
+        foundTask.setUser(updatedTask.getUser());
+
         taskRepository.save(updatedTask);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
