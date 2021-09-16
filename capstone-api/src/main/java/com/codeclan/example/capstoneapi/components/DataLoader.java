@@ -5,6 +5,7 @@ import com.codeclan.example.capstoneapi.models.data.Contact;
 import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.models.user.User;
 import com.codeclan.example.capstoneapi.repositories.ContactRepository;
+import com.codeclan.example.capstoneapi.repositories.TaskRepository;
 import com.codeclan.example.capstoneapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -20,6 +21,8 @@ public class DataLoader implements ApplicationRunner {
     ContactRepository contactRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     public void run(ApplicationArguments args){
 
@@ -60,5 +63,7 @@ public class DataLoader implements ApplicationRunner {
                 "prepare food and clean dishes",
                 false,
                 testUser);
+
+        taskRepository.save(testTaskOne);
     }
 }
