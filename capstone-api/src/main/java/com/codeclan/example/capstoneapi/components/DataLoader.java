@@ -48,7 +48,7 @@ public class DataLoader implements ApplicationRunner {
                 "Someone",
                 1,
                 100,
-                100,
+                100
                 );
 
         userRepository.save(testUser);
