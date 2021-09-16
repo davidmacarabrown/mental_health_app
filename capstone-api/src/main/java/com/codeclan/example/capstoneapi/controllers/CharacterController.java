@@ -19,12 +19,16 @@ import org.springframework.web.bind.annotation.*;
 //TODO /characters/{id}/tasks - put mapping use (request body with JSON)
 
 //TODO /characters/{id}/tasks/{id} - delete mapping
+
 @RestController
 public class CharacterController {
 
     @Autowired
     CharacterRepository characterRepository;
 
+    //CHARACTER ROUTES
+
+    //creates new character in DB
     @PostMapping(value = "/characters")
     //create response entity variable & take new Character object from the RequestBody
     public ResponseEntity<Character> saveNewCharacter(@RequestBody Character character){
@@ -33,6 +37,13 @@ public class CharacterController {
         return new ResponseEntity<>(character, HttpStatus.CREATED);
     }
 
+    //returns character by their unique ID
+    @GetMapping(value= "/characters/{id}")
+    public ResponseEntity getCharacterById(@PathVariable String id){
+        return new ResponseEntity(characterRepository.findById(id), HttpStatus.OK);
+    }
+
+    //deletes character by ID
     @DeleteMapping(value = "/characters/{id}")
     // question mark means an empty response entity can be sent back with just the HTTP Status
     public ResponseEntity<?> deleteCharacter(@PathVariable String id){
@@ -40,9 +51,8 @@ public class CharacterController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //returns character by their unique ID
-    @GetMapping(value= "/characters/{id}")
-        public ResponseEntity getCharacterById(@PathVariable String id){
-            return new ResponseEntity(characterRepository.findById(id), HttpStatus.OK);
-    }
+
+
+
+    //TASK ROUTES
 }
