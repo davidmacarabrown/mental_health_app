@@ -2,17 +2,18 @@ package com.codeclan.example.capstoneapi.models.data;
 
 public class AppData {
     
-    private double levelOneXp;
+    private int levelOneXp;
     
     private double xpMultiplier;
     
     private double xpReward;
 
-    private double startingHealth;
+    private int startingHealth;
 
     private double healthMultiplier;
 
-    public AppData( double levelOneXp, double xpMultiplier, double xpReward, double startingHealth, double healthMultiplier) {
+
+    public AppData( int levelOneXp, double xpMultiplier, double xpReward, int startingHealth, double healthMultiplier) {
         this.levelOneXp = levelOneXp;
         this.xpMultiplier = xpMultiplier;
         this.xpReward = xpReward;
@@ -22,11 +23,11 @@ public class AppData {
 
     public AppData(){}
     
-    public double getLevelOneXp() {
+    public int getLevelOneXp() {
         return levelOneXp;
     }
 
-    public void setLevelOneXp(double levelOneXp) {
+    public void setLevelOneXp(int levelOneXp) {
         this.levelOneXp = levelOneXp;
     }
 
@@ -46,11 +47,11 @@ public class AppData {
         this.xpReward = xpReward;
     }
 
-    public double getStartingHealth() {
+    public int getStartingHealth() {
         return startingHealth;
     }
 
-    public void setStartingHealth(double startingHealth) {
+    public void setStartingHealth(int startingHealth) {
         this.startingHealth = startingHealth;
     }
 

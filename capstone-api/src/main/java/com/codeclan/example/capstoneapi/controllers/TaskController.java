@@ -71,18 +71,20 @@ public class TaskController {
 
                 //increase the max health
                 double newHealth = foundUser.getHealth() * appData.getHealthMultiplier();
-                foundUser.setHealth(Math.floor(newHealth));
+                foundUser.setHealth((int)newHealth);
 
                 // reset the "current" XP
                 foundUser.setCurrentXp(0);
 
                 // increase the max XP
                 double newXp = foundUser.getMaximumXp() * appData.getXpMultiplier();
-                foundUser.setMaximumXp(newXp);
+                foundUser.setMaximumXp((int)newXp);
 
             } else {
                 // just increase the xp if no level change needed
-                foundUser.increaseXp(appData.getXpReward());
+
+                int newXp = appData.getLevelOneXp();
+                foundUser.increaseXp(newXp);
             }
         }
 
