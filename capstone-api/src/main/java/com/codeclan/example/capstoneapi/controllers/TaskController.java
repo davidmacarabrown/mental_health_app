@@ -2,7 +2,7 @@ package com.codeclan.example.capstoneapi.controllers;
 
 import com.codeclan.example.capstoneapi.models.data.AppData;
 import com.codeclan.example.capstoneapi.models.user.Task;
-import com.codeclan.example.capstoneapi.repositories.AppDataRepository;
+import com.codeclan.example.capstoneapi.models.user.User;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
 import com.codeclan.example.capstoneapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,14 @@ public class TaskController {
     TaskRepository taskRepository;
 
     @Autowired
-    AppDataRepository appDataRepository;
-
-    @Autowired
     UserRepository userRepository;
+
+    AppData appData = new AppData(
+            10,
+            1.2,
+            1,
+            100,
+            1.1);
 
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
@@ -43,19 +47,25 @@ public class TaskController {
         return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
     }
 
-    @PutMapping(value = "/users/{id}/tasks/{id}")
+    @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
-            @PathVariable Long id,
+            @PathVariable Long userId,
+            @PathVariable Long taskId,
             @RequestBody Task updatedTask){
 
-        Task foundTask = taskRepository.findById(id).get();
-
-        AppData appData = appDataRepository.findById(1L).get();
-
+        Task foundTask = taskRepository.findById(taskId).get();
+        User foundUser = userRepository.getById(userId);
 
 
-        //if foundTask.getStatus() == false && updatedTask.getStatus() == true:
-            //do the rest of things:
+        //if task in database and task in request status are different
+        if (foundTask.getStatus() != updatedTask.getStatus()){
+            //if difference in XP is not 0:
+            if (foundUser.getMaximumXp() - foundUser.getCurrentXp() != 0) {
+                //simply increase the user XP and continue
+                foundUser.increaseXp(appData.getXpReward());
+            }
+        }
+
             //check the user level:
                 //if XP till next level is equal to task XP value:
                     //increment the level by the multiplier
@@ -70,9 +80,9 @@ public class TaskController {
 
         foundTask.setName(updatedTask.getName());
         foundTask.setDescription(updatedTask.getDescription());
-
+        foundTask.setUser(foundUser);
         taskRepository.save(updatedTask);
-        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+        return new ResponseEntity<>(foundTask, HttpStatus.OK);
     }
 }
 

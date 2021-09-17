@@ -24,8 +24,7 @@ public class Task {
     private Boolean status;
 
     @ManyToOne
-    @JsonBackReference
-//    @JsonIgnoreProperties({"task"})
+    @JsonIgnoreProperties({"tasks"})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

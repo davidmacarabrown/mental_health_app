@@ -1,28 +1,15 @@
 package com.codeclan.example.capstoneapi.models.data;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="appdata")
 public class AppData {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name="levelOneXp")
+    
     private double levelOneXp;
-
-    @Column(name="xpMultiplier")
+    
     private double xpMultiplier;
-
-    @Column(name="xpReward")
+    
     private double xpReward;
 
-    @Column(name="startingHealth")
     private double startingHealth;
 
-    @Column(name="healthMultiplier")
     private double healthMultiplier;
 
     public AppData( double levelOneXp, double xpMultiplier, double xpReward, double startingHealth, double healthMultiplier) {
@@ -34,15 +21,7 @@ public class AppData {
     }
 
     public AppData(){}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     public double getLevelOneXp() {
         return levelOneXp;
     }
@@ -83,8 +62,7 @@ public class AppData {
         this.healthMultiplier = healthMultiplier;
     }
 
-    public double calculateNextLevelXP(double currentLevel){
-        return currentLevel * this.xpMultiplier;
+    public double calculateNextLevelXP(double currentXp){
+        return currentXp * this.xpMultiplier;
     }
-
 }

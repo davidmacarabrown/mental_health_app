@@ -1,9 +1,9 @@
 package com.codeclan.example.capstoneapi.controllers;
 
 
+import com.codeclan.example.capstoneapi.models.data.AppData;
 import com.codeclan.example.capstoneapi.models.user.User;
 
-import com.codeclan.example.capstoneapi.repositories.AppDataRepository;
 import com.codeclan.example.capstoneapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    AppDataRepository appDataRepository;
+    AppData appData = new AppData(
+            10,
+            1.2,
+            1,
+            100,
+            1.1);
 
     //User ROUTES
 

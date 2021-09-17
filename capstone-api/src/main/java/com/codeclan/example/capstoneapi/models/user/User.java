@@ -22,20 +22,19 @@ public class User {
     private int level;
 
     @Column(name = "currentXp")
-    private int currentXp;
+    private double currentXp;
 
     @Column(name= "maximumXP")
-    private int maximumXp;
+    private double maximumXp;
 
     @Column(name = "health")
-    private int health;
+    private double health;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonBackReference
-//    @JsonIgnoreProperties({"user"})
+    @JsonIgnoreProperties({"user"})
     private List<Task> tasks;
 
-    public User(String username, int level, int xp, int health) {
+    public User(String username, int level, double currentXp, double maximumXp,  double health) {
         this.username = username;
         this.level = level;
         this.currentXp = currentXp;
@@ -70,11 +69,11 @@ public class User {
         this.level = level;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
@@ -86,19 +85,23 @@ public class User {
         return this.tasks.add(newTask);
     }
 
-    public int getCurrentXp() {
+    public double getCurrentXp() {
         return currentXp;
     }
 
-    public void setCurrentXp(int currentXp) {
+    public void setCurrentXp(double currentXp) {
         this.currentXp = currentXp;
     }
 
-    public int getMaximumXp() {
+    public double getMaximumXp() {
         return maximumXp;
     }
 
-    public void setMaximumXp(int maximumXp) {
+    public void setMaximumXp(double maximumXp) {
         this.maximumXp = maximumXp;
+    }
+
+    public void increaseXp(double amount) {
+        currentXp += amount;
     }
 }

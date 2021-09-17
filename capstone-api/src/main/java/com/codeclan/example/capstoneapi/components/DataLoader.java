@@ -5,7 +5,6 @@ import com.codeclan.example.capstoneapi.models.data.AppData;
 import com.codeclan.example.capstoneapi.models.data.Contact;
 import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.models.user.User;
-import com.codeclan.example.capstoneapi.repositories.AppDataRepository;
 import com.codeclan.example.capstoneapi.repositories.ContactRepository;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
 import com.codeclan.example.capstoneapi.repositories.UserRepository;
@@ -25,21 +24,15 @@ public class DataLoader implements ApplicationRunner {
     UserRepository userRepository;
     @Autowired
     TaskRepository taskRepository;
-    @Autowired
-    AppDataRepository appDataRepository;
 
     public void run(ApplicationArguments args){
 
-
-
-        //APP DATA
-        AppData testAppData = new AppData(
+        AppData appData = new AppData(
                 10,
                 1.2,
                 1,
                 100,
                 1.1);
-        appDataRepository.save(testAppData);
 
         //CONTACTS
         Contact testContact = new Contact(
@@ -62,8 +55,9 @@ public class DataLoader implements ApplicationRunner {
         User testUser = new User(
                 "Someone",
                 1,
-                100,
-                100
+                0,
+                appData.getLevelOneXp(),
+                appData.getStartingHealth()
                 );
 
         userRepository.save(testUser);
