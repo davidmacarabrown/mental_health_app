@@ -71,7 +71,7 @@ public class TaskController {
 
                 //increase the max health
                 double newHealth = foundUser.getHealth() * appData.getHealthMultiplier();
-                foundUser.setHealth(newHealth);
+                foundUser.setHealth(Math.floor(newHealth));
 
                 // reset the "current" XP
                 foundUser.setCurrentXp(0);
