@@ -61,21 +61,21 @@ public class TaskController {
         if (foundTask.getStatus() != updatedTask.getStatus()){
             //if difference in XP is not 0:
             if (foundUser.getMaximumXp() - foundUser.getCurrentXp() != 0) {
-                //simply increase the user XP and continue
+                //increase the user XP and continue
                 foundUser.increaseXp(appData.getXpReward());
             }
         }
 
             //check the user level:
-                //if XP till next level is equal to task XP value:
-                    //increment the level by the multiplier
-                    //reset current XP to zero
-                    //increment the XP to next level
-            //reset the XP and increment level
-            //modify users max health value
+                //TODO [DONE] if XP till next level is equal to task XP value:
+                    //TODO increment the level by the multiplier
+                    //TODO reset current XP to zero
+                    //TODO increment the XP to next level
+            //TODO reset the XP and increment level
+            //TODO modify users max health value
 
-        // else: (if the task is not completed yet)
-        // just update the task with new info or new title...
+        //TODO else: (if the task is not completed yet)
+        //TODO just update the task with new info or new title...
 
 
         foundTask.setName(updatedTask.getName());
