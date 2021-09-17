@@ -51,13 +51,9 @@ public class UserController {
 
         User foundUser = userRepository.findById(id).get();
 
-        foundUser.setHealth(updatedUser.getHealth());
-        foundUser.setLevel(updatedUser.getLevel());
         foundUser.setUsername(updatedUser.getUsername());
-        foundUser.setXp(updatedUser.getXp());
-        foundUser.setHealth(updatedUser.getHealth());
 
-        userRepository.save(updatedUser);
-        return new ResponseEntity(updatedUser, HttpStatus.OK); //
+        userRepository.save(foundUser);
+        return new ResponseEntity(foundUser, HttpStatus.OK); //
     }
 }

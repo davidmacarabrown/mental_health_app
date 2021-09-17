@@ -19,10 +19,18 @@ public class AppData {
     @Column(name="xpReward")
     private double xpReward;
 
-    public AppData( double levelOneXp, double xpMultiplier, double xpReward) {
+    @Column(name="startingHealth")
+    private double startingHealth;
+
+    @Column(name="healthMultiplier")
+    private double healthMultiplier;
+
+    public AppData( double levelOneXp, double xpMultiplier, double xpReward, double startingHealth, double healthMultiplier) {
         this.levelOneXp = levelOneXp;
         this.xpMultiplier = xpMultiplier;
         this.xpReward = xpReward;
+        this.startingHealth = startingHealth;
+        this.healthMultiplier = healthMultiplier;
     }
 
     public AppData(){}
@@ -33,6 +41,14 @@ public class AppData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public double getLevelOneXp() {
+        return levelOneXp;
+    }
+
+    public void setLevelOneXp(double levelOneXp) {
+        this.levelOneXp = levelOneXp;
     }
 
     public double getXpMultiplier() {
@@ -47,16 +63,24 @@ public class AppData {
         return xpReward;
     }
 
-    public void setXpReward(int xpReward) {
+    public void setXpReward(double xpReward) {
         this.xpReward = xpReward;
     }
 
-    public double getLevelOneXp() {
-        return levelOneXp;
+    public double getStartingHealth() {
+        return startingHealth;
     }
 
-    public void setLevelOneXp(int levelOneXp) {
-        this.levelOneXp = levelOneXp;
+    public void setStartingHealth(double startingHealth) {
+        this.startingHealth = startingHealth;
+    }
+
+    public double getHealthMultiplier() {
+        return healthMultiplier;
+    }
+
+    public void setHealthMultiplier(double healthMultiplier) {
+        this.healthMultiplier = healthMultiplier;
     }
 
     public double calculateNextLevelXP(double currentLevel){

@@ -36,7 +36,9 @@ public class DataLoader implements ApplicationRunner {
         AppData testAppData = new AppData(
                 10,
                 1.2,
-                1);
+                1,
+                100,
+                1.1);
         appDataRepository.save(testAppData);
 
         //CONTACTS

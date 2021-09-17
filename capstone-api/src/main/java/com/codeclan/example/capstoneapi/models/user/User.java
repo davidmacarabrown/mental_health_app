@@ -20,8 +20,11 @@ public class User {
     @Column(name = "level")
     private int level;
 
-    @Column(name = "xp")
-    private int xp;
+    @Column(name = "currentXp")
+    private int currentXp;
+
+    @Column(name= "maximumXP")
+    private int maximumXp;
 
     @Column(name = "health")
     private int health;
@@ -33,7 +36,8 @@ public class User {
     public User(String username, int level, int xp, int health) {
         this.username = username;
         this.level = level;
-        this.xp = xp;
+        this.currentXp = currentXp;
+        this.maximumXp = maximumXp;
         this.health = health;
         this.tasks = new ArrayList<>();
     }
@@ -64,14 +68,6 @@ public class User {
         this.level = level;
     }
 
-    public int getXp() {
-        return xp;
-    }
-
-    public void setXp(int xp) {
-        this.xp = xp;
-    }
-
     public int getHealth() {
         return health;
     }
@@ -88,14 +84,19 @@ public class User {
         return this.tasks.add(newTask);
     }
 
-    //TODO method to implement level checking and increase XP, or if level will be maxed out
-    //MASSIVE ASTERISK - only works if task XP value is always the same and is a derivative of level xp
-    //on completion of task:
-    //check the remaining XP to next level (if <xp to next level === value of one task's XP>
-    //if the task will max out the level:
-    //set the level to level += 1
-    //set the current XP back to zero
-    //else:
-    //increment the XP by the value of one task XP
+    public int getCurrentXp() {
+        return currentXp;
+    }
 
+    public void setCurrentXp(int currentXp) {
+        this.currentXp = currentXp;
+    }
+
+    public int getMaximumXp() {
+        return maximumXp;
+    }
+
+    public void setMaximumXp(int maximumXp) {
+        this.maximumXp = maximumXp;
+    }
 }

@@ -19,8 +19,8 @@ public class Task {
     @Column(name= "description")
     private String description;
 
-    @Column(name = "completed")
-    private Boolean completed;
+    @Column(name = "status")
+    private Boolean status;
 
     @ManyToOne
     @JsonIgnoreProperties({"task"})
@@ -28,10 +28,10 @@ public class Task {
     private User user;
 
 
-    public Task(String name, String description, Boolean completed, User user) {
+    public Task(String name, String description, Boolean status, User user) {
         this.name = name;
         this.description = description;
-        this.completed = completed;
+        this.status = status;
         this.user = user;
     }
 
@@ -53,12 +53,12 @@ public class Task {
         this.description = description;
     }
 
-    public Boolean getCompleted() {
-        return completed;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Long getId(){
