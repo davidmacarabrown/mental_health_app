@@ -81,23 +81,12 @@ public class TaskController {
                 foundUser.setMaximumXp((int)newXp);
 
             } else {
-                // just increase the xp if no level change needed
 
-                int newXp = appData.getLevelOneXp();
-                foundUser.increaseXp(newXp);
+                // just increase the xp if no level change needed
+                double newXp = appData.getXpReward();
+                foundUser.increaseXp((int)newXp);
             }
         }
-
-            //check the user level:
-                //TODO [DONE] if XP till next level is equal to task XP value:
-                    //TODO increment the level by the multiplier
-                    //TODO reset current XP to zero
-                    //TODO increment the XP to next level
-            //TODO reset the XP and increment level
-            //TODO modify users max health value
-
-        //TODO else: (if the task is not completed yet)
-        //TODO just update the task with new info or new title...
 
         //database side task is updated with changes
         foundTask.setName(updatedTask.getName());
@@ -111,15 +100,4 @@ public class TaskController {
     }
 }
 
-//TODO method to implement level checking and increase XP, or if level will be maxed out
-
-// check task status in back end, compare with updatedTask, if back end = false:
-
-//MASSIVE ASTERISK - only works if task XP value is always the same and is a derivative of level xp
-//on completion of task:
-//check the remaining XP to next level (if <xp to next level === value of one task's XP>
-//if the task will max out the level:
-
-//set the current XP back to zero
-//else:
-//increment the XP by the value of one task XP
+//TODO ask what will happen on the front end to a task once it is completed, will it disappear or will it stay
