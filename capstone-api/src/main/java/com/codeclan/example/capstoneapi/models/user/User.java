@@ -1,5 +1,6 @@
 package com.codeclan.example.capstoneapi.models.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -30,7 +31,8 @@ public class User {
     private int health;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"user"})
+    @JsonBackReference
+//    @JsonIgnoreProperties({"user"})
     private List<Task> tasks;
 
     public User(String username, int level, int xp, int health) {

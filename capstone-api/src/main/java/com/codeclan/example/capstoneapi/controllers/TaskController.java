@@ -4,6 +4,7 @@ import com.codeclan.example.capstoneapi.models.data.AppData;
 import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.repositories.AppDataRepository;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
+import com.codeclan.example.capstoneapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class TaskController {
 
     @Autowired
     AppDataRepository appDataRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
@@ -48,7 +52,7 @@ public class TaskController {
 
         AppData appData = appDataRepository.findById(1L).get();
 
-        
+
 
         //if foundTask.getStatus() == false && updatedTask.getStatus() == true:
             //do the rest of things:

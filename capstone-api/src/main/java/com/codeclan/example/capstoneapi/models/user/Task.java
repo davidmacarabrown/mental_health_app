@@ -1,6 +1,7 @@
 package com.codeclan.example.capstoneapi.models.user;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -23,7 +24,8 @@ public class Task {
     private Boolean status;
 
     @ManyToOne
-    @JsonIgnoreProperties({"task"})
+    @JsonBackReference
+//    @JsonIgnoreProperties({"task"})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
