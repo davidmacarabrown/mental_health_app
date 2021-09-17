@@ -49,13 +49,19 @@ public class TaskController {
 
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
+
             @PathVariable Long userId,
             @PathVariable Long taskId,
+
+            //request body of task object from the front end, binding it to a Task object
             @RequestBody Task updatedTask){
 
+        //fetching matching task from the database by the ID from path variable
+        // .get() extracts the task from the Optional<> return type of findById
         Task foundTask = taskRepository.findById(taskId).get();
-        User foundUser = userRepository.getById(userId);
 
+        //fetching the user from the database
+        User foundUser = userRepository.findById(taskId).get();
 
         //if task in database and task in request status are different
         if (foundTask.getStatus() == false &&  updatedTask.getStatus() == true){
@@ -91,11 +97,15 @@ public class TaskController {
         //database side task is updated with changes
         foundTask.setName(updatedTask.getName());
         foundTask.setDescription(updatedTask.getDescription());
+
+        //modified DB task is updated with the DB user
         foundTask.setUser(foundUser);
 
         //updated user and task are saved
         userRepository.save(foundUser);
         taskRepository.save(updatedTask);
+
+        //TODO consider sending back the user instead of the task?
         return new ResponseEntity<>(foundTask, HttpStatus.OK);
     }
 }
