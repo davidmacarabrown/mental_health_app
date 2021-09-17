@@ -69,6 +69,10 @@ public class User {
         this.level = level;
     }
 
+    public void increaseLevel(){
+        this.level += 1;
+    }
+
     public double getHealth() {
         return health;
     }

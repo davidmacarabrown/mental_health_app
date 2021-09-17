@@ -58,8 +58,12 @@ public class Task {
         return status;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void markComplete(){
+        this.status = true;
+    }
+
+    public void markIncomplete(){
+        this.status = false;
     }
 
     public Long getId(){

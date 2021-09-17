@@ -55,7 +55,7 @@ public class DataLoader implements ApplicationRunner {
         User testUser = new User(
                 "Someone",
                 1,
-                0,
+                9,
                 appData.getLevelOneXp(),
                 appData.getStartingHealth()
                 );

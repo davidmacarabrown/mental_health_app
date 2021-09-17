@@ -58,10 +58,30 @@ public class TaskController {
 
 
         //if task in database and task in request status are different
-        if (foundTask.getStatus() != updatedTask.getStatus()){
-            //if difference in XP is not 0:
-            if (foundUser.getMaximumXp() - foundUser.getCurrentXp() != 0) {
-                //increase the user XP and continue
+        if (foundTask.getStatus() == false &&  updatedTask.getStatus() == true){
+
+            //mark the task in the database side as complete
+            foundTask.markComplete();
+
+            //if difference in XP is zero:
+            if (foundUser.getMaximumXp() - foundUser.getCurrentXp() == appData.getXpReward()) {
+
+                // if true: increase the level
+                foundUser.increaseLevel();
+
+                //increase the max health
+                double newHealth = foundUser.getHealth() * appData.getHealthMultiplier();
+                foundUser.setHealth(newHealth);
+
+                // reset the "current" XP
+                foundUser.setCurrentXp(0);
+
+                // increase the max XP
+                double newXp = foundUser.getMaximumXp() * appData.getXpMultiplier();
+                foundUser.setMaximumXp(newXp);
+
+            } else {
+                // just increase the xp if no level change needed
                 foundUser.increaseXp(appData.getXpReward());
             }
         }
@@ -77,10 +97,13 @@ public class TaskController {
         //TODO else: (if the task is not completed yet)
         //TODO just update the task with new info or new title...
 
-
+        //database side task is updated with changes
         foundTask.setName(updatedTask.getName());
         foundTask.setDescription(updatedTask.getDescription());
         foundTask.setUser(foundUser);
+
+        //updated user and task are saved
+        userRepository.save(foundUser);
         taskRepository.save(updatedTask);
         return new ResponseEntity<>(foundTask, HttpStatus.OK);
     }
