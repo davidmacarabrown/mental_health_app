@@ -70,6 +70,13 @@ public class DataLoader implements ApplicationRunner {
                 false,
                 testUser);
 
+        Task testTaskTwo = new Task(
+                "walking the doge",
+                "dog is very tired so not far walk pls",
+                false,
+                testUser);
+
         taskRepository.save(testTaskOne);
+        taskRepository.save(testTaskTwo);
     }
 }

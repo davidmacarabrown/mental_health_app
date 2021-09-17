@@ -61,7 +61,7 @@ public class TaskController {
         Task foundTask = taskRepository.findById(taskId).get();
 
         //fetching the user from the database
-        User foundUser = userRepository.findById(taskId).get();
+        User foundUser = userRepository.findById(userId).get();
 
         //if task in database and task in request status are different
         if (foundTask.getStatus() == false &&  updatedTask.getStatus() == true){
