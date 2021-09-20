@@ -30,7 +30,7 @@ public class User {
     @Column(name = "health")
     private int health;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 //    @JsonIgnoreProperties({"user"})
     @JsonBackReference
     private List<Task> tasks;
