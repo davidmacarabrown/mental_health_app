@@ -31,7 +31,8 @@ public class User {
     private int health;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"user"})
+//    @JsonIgnoreProperties({"user"})
+    @JsonBackReference
     private List<Task> tasks;
 
     public User(String username, int level, int currentXp, int maximumXp,  int health) {

@@ -35,10 +35,15 @@ public class TaskController {
         return new ResponseEntity<>(taskRepository.findByUserId(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/users/{id}/tasks")
-    public ResponseEntity<Task> saveTask(@RequestBody Task task){
-        taskRepository.save(task);
-        return new ResponseEntity<>(task, HttpStatus.CREATED);
+    @PostMapping(value = "/users/{userId}/tasks")
+    public ResponseEntity<Task> saveTask(
+            @PathVariable Long userId,
+            @RequestBody Task newTask){
+
+        User  foundUser = userRepository.findById(userId).get();
+        newTask.setUser(foundUser);
+        taskRepository.save(newTask);
+        return new ResponseEntity<>(newTask, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "users/{id}/tasks/{id}")
@@ -47,6 +52,10 @@ public class TaskController {
         return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
     }
 
+    //TODO route for updating other details
+
+    //TODO special route for markcomplete - Patch
+
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
 
@@ -54,7 +63,23 @@ public class TaskController {
             @PathVariable Long taskId,
 
             //request body of task object from the front end, binding it to a Task object
-            @RequestBody Task updatedTask){
+            @RequestBody Task updatedTask
+    ){
+        Task foundTask = taskRepository.findById(taskId).get();
+
+        foundTask.setName(updatedTask.getName());
+        foundTask.setDescription(updatedTask.getDescription());
+
+        taskRepository.save(foundTask);
+
+        return new ResponseEntity<>(foundTask, HttpStatus.ACCEPTED);
+    }
+
+    @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
+    public ResponseEntity<User> updateTask(
+
+            @PathVariable Long userId,
+            @PathVariable Long taskId) {
 
         //fetching matching task from the database by the ID from path variable
         // .get() extracts the task from the Optional<> return type of findById
@@ -64,7 +89,7 @@ public class TaskController {
         User foundUser = userRepository.findById(userId).get();
 
         //if task in database and task in request status are different
-        if (foundTask.getStatus() == false &&  updatedTask.getStatus() == true){
+        if (foundTask.getStatus() == false){
 
             //mark the task in the database side as complete
             foundTask.markComplete();
@@ -95,18 +120,17 @@ public class TaskController {
         }
 
         //database side task is updated with changes
-        foundTask.setName(updatedTask.getName());
-        foundTask.setDescription(updatedTask.getDescription());
+
 
         //modified DB task is updated with the DB user
         foundTask.setUser(foundUser);
 
         //updated user and task are saved
         userRepository.save(foundUser);
-        taskRepository.save(updatedTask);
+        taskRepository.save(foundTask);
 
         //TODO consider sending back the user instead of the task?
-        return new ResponseEntity<>(foundTask, HttpStatus.OK);
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 }
 
