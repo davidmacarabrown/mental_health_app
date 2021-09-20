@@ -30,11 +30,13 @@ public class TaskController {
             100,
             1.1);
 
+    //get tasks by the user ID
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
         return new ResponseEntity<>(taskRepository.findByUserId(id), HttpStatus.OK);
     }
 
+    //post a new task to the User by their ID
     @PostMapping(value = "/users/{userId}/tasks")
     public ResponseEntity<Task> saveTask(
             @PathVariable Long userId,
@@ -46,16 +48,14 @@ public class TaskController {
         return new ResponseEntity<>(newTask, HttpStatus.CREATED);
     }
 
+    //delete a task by its ID
     @DeleteMapping(value = "users/{id}/tasks/{id}")
     public ResponseEntity<Long> deleteTaskByName(@PathVariable Long id) {
         taskRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
     }
 
-    //TODO route for updating other details
-
-    //TODO special route for markcomplete - Patch
-
+    //update a tasks details (name/description)
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
 
@@ -67,14 +67,17 @@ public class TaskController {
     ){
         Task foundTask = taskRepository.findById(taskId).get();
 
+        //database version of task is updated with the new information
         foundTask.setName(updatedTask.getName());
         foundTask.setDescription(updatedTask.getDescription());
 
+        //task is saved and then returned
         taskRepository.save(foundTask);
 
         return new ResponseEntity<>(foundTask, HttpStatus.ACCEPTED);
     }
 
+    //mark a task by complete by User ID and Task ID
     @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
     public ResponseEntity<User> updateTask(
 
@@ -97,10 +100,10 @@ public class TaskController {
             //if difference in XP is zero:
             if (foundUser.getMaximumXp() - foundUser.getCurrentXp() == appData.getXpReward()) {
 
-                // if true: increase the level
+                //increase the level
                 foundUser.increaseLevel();
 
-                //increase the max health
+                //set the new max health (current health * multiplier)
                 double newHealth = foundUser.getHealth() * appData.getHealthMultiplier();
                 foundUser.setHealth((int)newHealth);
 
@@ -119,19 +122,13 @@ public class TaskController {
             }
         }
 
-        //database side task is updated with changes
-
-
-        //modified DB task is updated with the DB user
+        //modified DB task is updated with the found user
         foundTask.setUser(foundUser);
 
         //updated user and task are saved
         userRepository.save(foundUser);
         taskRepository.save(foundTask);
 
-        //TODO consider sending back the user instead of the task?
         return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 }
-
-//TODO ask what will happen on the front end to a task once it is completed, will it disappear or will it stay
