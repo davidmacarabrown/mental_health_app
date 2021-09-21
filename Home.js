@@ -10,23 +10,39 @@ import TaskItem from './TaskItem';
 
 export default function Home () {
 
-    const [isLoading, setLoading] = useState(true);
-    const [tasks, setTasks] = useState([])
+    const testUserId = 1
+    
+    const [tasks, setTasks] = useState([]);
+    const [tasksLoaded, setTasksLoaded] = useState(false);
+    const [userData, setUserData] = useState({})
+    const [userLoaded, setUserLoaded] = useState(false)
 
-
-    const loadTaskData = function(){
-        fetch('http://10.0.2.2:8080/users/1/tasks')
+    const loadTaskData = function(userId){
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
         .then((response) => response.json())
         .then((json) => setTasks(json))
         .catch(() => alert("Tasks Unavailable"))
-        .finally(setLoading(false))
+        .finally(setTasksLoaded(true))
     }
 
-    const deleteTask = function(user, task){
-       const userId = user.toString()
-       const taskId = task.toString()
-        fetch('http://10.0.2.2:8080/users/'+userId+'/tasks/' +taskId, {
-            method: 'DELETE'}) 
+    const loadUserData = function(userId){
+        fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/')
+        .then((response) => response.json())
+        .then((json)=> setUserData(json))
+        .catch(() => alert("User Not Found"))
+        .finally(setUserLoaded(true))
+    }
+
+    const deleteTask = function(userId, taskId){
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString()+ '/', {
+            method: 'DELETE'})
+        .then((response) => {if (response.status === "202"){
+            tasks.forEach((task, index, array) => {
+                if (task.id === taskId){
+                    array.splice(index, 1)
+                }
+            })
+        }}) 
     }
 
     const payload = {"name": "some random name",
@@ -35,7 +51,7 @@ export default function Home () {
 
     const addTask = function(userId, payload){
         
-        fetch('http://10.0.2.2:8080/users/' + userId + '/tasks', {
+        fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/tasks', {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(payload)})
@@ -44,26 +60,26 @@ export default function Home () {
     }
 
     const markComplete = function(userId, taskId){
-        
+
         fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString() + '/markcomplete', {
             method: 'PATCH'
         }).then((response) => response.json())
-        .then((response) => taskUpdateHandler(response, taskId))
+        .then((json) => setUserData(json))
     }
     
     useEffect(() => {
-        loadTaskData()
+        loadTaskData(testUserId)
+        loadUserData(testUserId)
     }, []);
 
-    //put checking for array length into the conditional statement
     return(
+        //
         <View>
-        {tasks.length === 0 ?  <Text>LOADING...</Text> : 
+        {userLoaded === false || tasks.length === 0 ?  <Text>LOADING...</Text> : 
 
             <View>
-                <TaskItem props={tasks[0]}></TaskItem>
 
-                <TouchableOpacity onPress={()=> deleteTask(1, 1)}>
+                <TouchableOpacity onPress={()=> deleteTask(testUserId, 1)}>
                     <Text>DELETE THE TASK</Text>
                 </TouchableOpacity>
 
@@ -71,7 +87,7 @@ export default function Home () {
                 <Text>-----------------------</Text>
                 <Text>-----------------------</Text>
 
-                <TouchableOpacity onPress={()=> markComplete(1, 1)}>
+                <TouchableOpacity onPress={()=> markComplete(testUserId, 1)}>
                     <Text>MARK COMPLETE</Text>
                 </TouchableOpacity>
 
@@ -79,18 +95,33 @@ export default function Home () {
                 <Text>-----------------------</Text>
                 <Text>-----------------------</Text>
 
-                <TouchableOpacity onPress={()=> addTask(1, payload)}>
+                <TouchableOpacity onPress={()=> addTask(testUserId, payload)}>
                     <Text>ADD TASK</Text>
                 </TouchableOpacity>
                 
                 <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
+                
                 <Text>-----------------------</Text>
 
-                <Text>{tasks.length.toString()}</Text>
             </View>
         
         }   
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+
+        {userLoaded ? <View>
+                            <Text>{userData.username}</Text>
+                            <Text>{userData.currentXp}</Text>
+                            <Text>{userData.level}</Text>
+                            <Text>{userData.health}</Text>
+                        </View>
+                        :
+                        <View>
+                            <Text>NO USER LOADED</Text>
+                        </View> 
+                        }
+                        
         </View>
     );
     
