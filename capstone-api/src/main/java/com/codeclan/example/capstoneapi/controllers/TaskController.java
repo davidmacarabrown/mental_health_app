@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class TaskController {
 
@@ -31,8 +32,8 @@ public class TaskController {
             1.1);
 
     //get tasks by the user ID
-//    @CrossOrigin(origins = "http://localhost:3000")
-    @CrossOrigin(origins = "http://10.0.2.255")
+
+
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
         System.out.println("task data retrieved");
@@ -40,7 +41,7 @@ public class TaskController {
     }
 
     //post a new task to the User by their ID
-    @CrossOrigin(origins = "http://10.0.2.255")
+
     @PostMapping(value = "/users/{userId}/tasks")
     public ResponseEntity<Task> saveTask(
             @PathVariable Long userId,
@@ -54,7 +55,7 @@ public class TaskController {
     }
 
     //delete a task by its ID
-    @CrossOrigin(origins = "http://10.0.2.255")
+
     @DeleteMapping(value = "users/{id}/tasks/{id}")
     public ResponseEntity<Long> deleteTaskByName(@PathVariable Long id) {
         taskRepository.deleteById(id);
@@ -63,7 +64,7 @@ public class TaskController {
     }
 
     //update a tasks details (name/description)
-    @CrossOrigin(origins = "http://10.0.2.255")
+
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
 
@@ -86,7 +87,7 @@ public class TaskController {
     }
 
     //mark a task by complete by User ID and Task ID
-    @CrossOrigin(origins = "http://10.0.2.255")
+
     @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
     public ResponseEntity<User> updateTask(
 
