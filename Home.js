@@ -1,51 +1,99 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text , StyleSheet, Image, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text , StyleSheet, Image, FlatList, ActivityIndicator, Pressable, TouchableOpacity, Button} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../assets/colors/colors';
 import categoriesData from '../assets/data/categoriesData';
 import popularData from '../assets/data/popularData';
+import TaskItem from './TaskItem';
 
 export default function Home () {
 
     const [isLoading, setLoading] = useState(true);
-    const [tasksLoading, setTaskLoading] = useState(true);
-    const [data, setData] = useState({});
+    const [tasks, setTasks] = useState([])
 
-    const loadData = function(){
-        fetch("http://10.0.2.2:8080/users/1")
+
+    const loadTaskData = function(){
+        fetch('http://10.0.2.2:8080/users/1/tasks')
         .then((response) => response.json())
-        .then((json) => setData(json))
-        .catch(() => alert("Service Unavailable"))
-
+        .then((json) => setTasks(json))
+        .catch(() => alert("Tasks Unavailable"))
         .finally(setLoading(false))
-
     }
 
+    const deleteTask = function(user, task){
+       const userId = user.toString()
+       const taskId = task.toString()
+        fetch('http://10.0.2.2:8080/users/'+userId+'/tasks/' +taskId, {
+            method: 'DELETE'}) 
+    }
 
+    const payload = {"name": "some random name",
+                    "description": "very hard task mate ello mate",
+                    "status": false}
 
+    const addTask = function(userId, payload){
+        
+        fetch('http://10.0.2.2:8080/users/' + userId + '/tasks', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)})
+            .then((response) => response.json())
+            .then((json) => tasks.push(json))
+    }
+
+    const markComplete = function(userId, taskId){
+        
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString() + '/markcomplete', {
+            method: 'PATCH'
+        }).then((response) => response.json())
+        .then((response) => taskUpdateHandler(response, taskId))
+    }
+    
     useEffect(() => {
-        loadData()
+        loadTaskData()
     }, []);
 
-    const userName = data.username
-    const userXp = data.currentXp
-    // const task1 = tasks[0].description
-    
-
+    //put checking for array length into the conditional statement
     return(
-        <SafeAreaView>
-        {isLoading && tasksLoading ? <Text>LOADING</Text> : 
         <View>
-            <Text>{userName}</Text>
-            <Text>{userXp}</Text>
-            {/* <Text>{task1}</Text> */}
-        </View>
-        }
+        {tasks.length === 0 ?  <Text>LOADING...</Text> : 
+
+            <View>
+                <TaskItem props={tasks[0]}></TaskItem>
+
+                <TouchableOpacity onPress={()=> deleteTask(1, 1)}>
+                    <Text>DELETE THE TASK</Text>
+                </TouchableOpacity>
+
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+
+                <TouchableOpacity onPress={()=> markComplete(1, 1)}>
+                    <Text>MARK COMPLETE</Text>
+                </TouchableOpacity>
+
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+
+                <TouchableOpacity onPress={()=> addTask(1, payload)}>
+                    <Text>ADD TASK</Text>
+                </TouchableOpacity>
+                
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+
+                <Text>{tasks.length.toString()}</Text>
+            </View>
         
-        </SafeAreaView>
+        }   
+        </View>
     );
     
 };
+
 

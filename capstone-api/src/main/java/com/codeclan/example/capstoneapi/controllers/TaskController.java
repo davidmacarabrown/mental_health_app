@@ -31,12 +31,16 @@ public class TaskController {
             1.1);
 
     //get tasks by the user ID
+//    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://10.0.2.255")
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
+        System.out.println("task data retrieved");
         return new ResponseEntity<>(taskRepository.findByUserId(id), HttpStatus.OK);
     }
 
     //post a new task to the User by their ID
+    @CrossOrigin(origins = "http://10.0.2.255")
     @PostMapping(value = "/users/{userId}/tasks")
     public ResponseEntity<Task> saveTask(
             @PathVariable Long userId,
@@ -45,17 +49,21 @@ public class TaskController {
         User  foundUser = userRepository.findById(userId).get();
         newTask.setUser(foundUser);
         taskRepository.save(newTask);
+        System.out.println("new task saved");
         return new ResponseEntity<>(newTask, HttpStatus.CREATED);
     }
 
     //delete a task by its ID
+    @CrossOrigin(origins = "http://10.0.2.255")
     @DeleteMapping(value = "users/{id}/tasks/{id}")
     public ResponseEntity<Long> deleteTaskByName(@PathVariable Long id) {
         taskRepository.deleteById(id);
+        System.out.println("one task deleted");
         return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
     }
 
     //update a tasks details (name/description)
+    @CrossOrigin(origins = "http://10.0.2.255")
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
     public ResponseEntity<Task> updateTask(
 
@@ -73,11 +81,12 @@ public class TaskController {
 
         //task is saved and then returned
         taskRepository.save(foundTask);
-
+        System.out.println("one task updated");
         return new ResponseEntity<>(foundTask, HttpStatus.ACCEPTED);
     }
 
     //mark a task by complete by User ID and Task ID
+    @CrossOrigin(origins = "http://10.0.2.255")
     @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
     public ResponseEntity<User> updateTask(
 
@@ -128,7 +137,7 @@ public class TaskController {
         //updated user and task are saved
         userRepository.save(foundUser);
         taskRepository.save(foundTask);
-
+        System.out.println("one task marked complete");
         return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 }

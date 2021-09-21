@@ -36,6 +36,7 @@ public class UserController {
     //returns User by their unique ID
     @GetMapping(value= "/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
+        System.out.println("user data retrieved");
         return new ResponseEntity(userRepository.findById(id), HttpStatus.OK);
     }
 
