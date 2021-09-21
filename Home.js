@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import colors from '../assets/colors/colors';
 import categoriesData from '../assets/data/categoriesData';
 import popularData from '../assets/data/popularData';
-import TaskItem from './TaskItem';
+
 
 export default function Home () {
 
@@ -72,13 +72,28 @@ export default function Home () {
         loadUserData(testUserId)
     }, []);
 
+    const TaskItem = ({item, onPress}) => (
+        <TouchableOpacity onPress={onPress}>
+            <Text>{item.name}</Text>
+        </TouchableOpacity>
+    
+    )
+
+    const renderItem = ({item}) => {
+        const taskId = item.id;
+        return(
+            <TaskItem 
+                item={item}
+                onPress={()=> markComplete(testUserId, taskId)}
+                />
+        )
+    }
+
     return(
-        //
         <View>
         {userLoaded === false || tasks.length === 0 ?  <Text>LOADING...</Text> : 
 
             <View>
-
                 <TouchableOpacity onPress={()=> deleteTask(testUserId, 1)}>
                     <Text>DELETE THE TASK</Text>
                 </TouchableOpacity>
@@ -98,11 +113,20 @@ export default function Home () {
                 <TouchableOpacity onPress={()=> addTask(testUserId, payload)}>
                     <Text>ADD TASK</Text>
                 </TouchableOpacity>
-                
+
                 <Text>-----------------------</Text>
-                
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
+                <Text>{tasks.length.toString()}</Text>
+                <Text>-----------------------</Text>
+                <Text>-----------------------</Text>
                 <Text>-----------------------</Text>
 
+                <FlatList 
+                    data={tasks}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                />
             </View>
         
         }   
@@ -126,5 +150,6 @@ export default function Home () {
     );
     
 };
+
 
 
