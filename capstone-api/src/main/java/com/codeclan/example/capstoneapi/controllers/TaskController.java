@@ -43,15 +43,16 @@ public class TaskController {
     //post a new task to the User by their ID
 
     @PostMapping(value = "/users/{userId}/tasks")
-    public ResponseEntity<Task> saveTask(
+    public ResponseEntity<List<Task>> saveTask(
             @PathVariable Long userId,
             @RequestBody Task newTask){
 
         User  foundUser = userRepository.findById(userId).get();
         newTask.setUser(foundUser);
         taskRepository.save(newTask);
+
         System.out.println("new task saved");
-        return new ResponseEntity<>(newTask, HttpStatus.CREATED);
+        return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.CREATED);
     }
 
     //delete a task by its ID
@@ -70,7 +71,7 @@ public class TaskController {
     //update a tasks details (name/description)
 
     @PutMapping(value = "/users/{userId}/tasks/{taskId}")
-    public ResponseEntity<Task> updateTask(
+    public ResponseEntity<List<Task>> updateTask(
 
             @PathVariable Long userId,
             @PathVariable Long taskId,
@@ -87,7 +88,7 @@ public class TaskController {
         //task is saved and then returned
         taskRepository.save(foundTask);
         System.out.println("one task updated");
-        return new ResponseEntity<>(foundTask, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.ACCEPTED);
     }
 
     //mark a task by complete by User ID and Task ID

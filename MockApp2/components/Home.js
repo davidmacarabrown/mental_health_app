@@ -57,7 +57,7 @@ export default function Home () {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(payload)})
             .then((response) => response.json())
-            .then((json) => tasks.push(json))
+            .then((json) => setTasks(json))
     }
 
     const markComplete = function(userId, taskId){
@@ -66,7 +66,8 @@ export default function Home () {
             method: 'PATCH'
         }).then((response) => response.json())
         .then((json) => setUserData(json))
-    }
+        loadTaskData(testUserId)
+    };
     
     useEffect(() => {
         loadTaskData(testUserId)
@@ -78,6 +79,13 @@ export default function Home () {
 
             <TouchableOpacity onPress={onPress}>
                 <Text style={styles.title}>{item.name}</Text>
+                <View style={styles.markCompletedIcon}>
+                <Feather
+                        name="check"
+                         size={30 }
+                        color={colors.primary}
+                    />
+                </View>
             </TouchableOpacity>
             <TouchableOpacity>
             
