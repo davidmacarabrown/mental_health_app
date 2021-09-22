@@ -58,7 +58,6 @@ export default function Home () {
             .then((json) => setTasks(json))
     }
 
-    //TODO: 
     const markComplete = function(userId, taskId){
         
         const filter = function(jsonObject){
