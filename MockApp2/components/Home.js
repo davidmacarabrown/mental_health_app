@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text , StyleSheet, Image, FlatList, ActivityIndicator, Pressable, TouchableOpacity, Button, TouchableOpacityBase,ScrollView,KeyboardAvoidingView,TextInput} from 'react-native';
+import { View, Text , StyleSheet, Image, FlatList, ActivityIndicator, Pressable, TouchableOpacity, Button, TouchableOpacityBase,ScrollView,KeyboardAvoidingView,TextInput} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,7 +18,8 @@ export default function Home () {
     const [userData, setUserData] = useState({})
     const [userLoading, setuserLoading] = useState(true)
 
-
+    const [newTaskName, setNewTaskName] = useState(null)
+    const [newTaskDescription, setNewTaskDescription] = useState(null)
 
     const loadTaskData = function(userId){
     fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
@@ -43,19 +44,30 @@ export default function Home () {
         .then((json) => setTasks(json))
     }
 
-    const payload = {"name": "Go For A Walk",
-                    "description": "very hard task mate ello mate",
-                    "status": false
-                }
+    const resetFields = function(){
+        setNewTaskName(null)
+        setNewTaskDescription(null)
+    }
 
-    const addTask = function(userId, payload){
-        
-        fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/tasks', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(payload)})
-            .then((response) => response.json())
-            .then((json) => setTasks(json))
+    const addTask = function(userId){
+
+        console.log(newTaskName, newTaskDescription)
+
+        const payload = {
+            "name": newTaskName,
+            "description": newTaskDescription
+        }
+
+        if (newTaskName && newTaskDescription){
+
+            fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/tasks', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(payload)})
+                .then((response) => response.json())
+                .then((json) => setTasks(json))
+                
+            }
     }
 
     const markComplete = function(userId, taskId){
@@ -98,6 +110,14 @@ export default function Home () {
             :
             <Text>No Tasks...</Text>
         }
+        <View>
+            <TextInput placeholder={"Task name"} style={styles.textBox} onChangeText={(value) => setNewTaskName(value)}/>
+            <TextInput placeholder={"Task description"} style={styles.textBox} onChangeText={(value) => setNewTaskDescription(value)}/>
+
+            <TouchableOpacity onPress={()=> addTask(testUserId)}>
+                <Text>ADD THE TASK</Text>
+            </TouchableOpacity>
+        </View>
         </View>
     );
     
@@ -123,7 +143,11 @@ const styles = StyleSheet.create({
         borderRadius:3,
     },
 
-
+    textBox:{
+        margin: 5,
+        backgroundColor: "#C0C0C0",
+        borderColor: "#C0C0C0"
+    },
     // TODAY TASK'S
     taskItem:{
         margin: 5,

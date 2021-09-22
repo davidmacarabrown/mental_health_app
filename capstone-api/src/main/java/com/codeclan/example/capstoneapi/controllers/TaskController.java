@@ -50,6 +50,7 @@ public class TaskController {
 
         User  foundUser = userRepository.findById(userId).get();
         newTask.setUser(foundUser);
+        newTask.markIncomplete();
         taskRepository.save(newTask);
 
         System.out.println("new task saved");
