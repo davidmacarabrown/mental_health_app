@@ -92,7 +92,7 @@ export default function Home () {
                 <View style={styles.markCompletedIcon}>
                 <MaterialCommunityIcons
                         name="check"
-                         size={12}
+                         size={30 }
                         color={colors.primary}
                     />
                 </View>
@@ -156,16 +156,28 @@ export default function Home () {
         {userLoaded === false || tasks.length === 0 ?  <Text>LOADING...</Text> : 
 
             <View style={styles.deleteTaskWrapper}>
-                <TouchableOpacity onPress={()=> deleteTask(testUserId, 1)}>
-                    <Text style={styles.deleteText}>DELETE THE TASK</Text>
+                <TouchableOpacity style={styles.buttonContainer} onPress={()=> deleteTask(testUserId, 1)}>
+                    <Text style={styles.deleteText}></Text>
+                      <MaterialCommunityIcons
+                        name="delete"
+                         size={30}
+                        color={colors.primary}
+                    />
+
                 </TouchableOpacity>
 
            
                     {/* MARK COMPLETED BOX */}
-                <TouchableOpacity onPress={()=> markComplete(testUserId, 1)}>
-                    <Text style={styles.markCompeteText}>MARK COMPLETE</Text>
+                <TouchableOpacity 
+                style={styles.buttonContainer} 
+                onPress={()=> markComplete(testUserId, 1)}>
+                    <Text style={styles.markCompeteText}></Text>
+                    <MaterialCommunityIcons
+                        name="check"
+                         size={30}
+                        color={colors.primary}
+                    />
                     <View style={styles.addWrapper}>
-                    <Text style={styles.addText}>+</Text>
 
           </View>
                 </TouchableOpacity>
@@ -174,17 +186,17 @@ export default function Home () {
                
 
                 <TouchableOpacity onPress={()=> addTask(testUserId, payload)}>
-                    <Text>ADD TASK</Text>
+                    <Text>Add Task</Text>
+                    <View style={styles.addTaskWrapper}>
+                    <Text style={styles.AddTaskText}>+</Text>
+                    </View>
                 </TouchableOpacity>
 
-                <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
+           
                 <Text>-----------------------</Text>
                 <Text>{tasks.length.toString()}</Text>
                 <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
-
+               
                 <FlatList 
                     data={tasks}
                     renderItem={renderItem}
@@ -194,8 +206,7 @@ export default function Home () {
         
         }   
                 <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
-                <Text>-----------------------</Text>
+           
 
         {userLoaded ? <View>
                             <Text>{userData.username}</Text>
@@ -304,11 +315,6 @@ const styles = StyleSheet.create({
     infoText:{
         fontSize: 30
     },
-    deleteTaskWrapper:{
-        
-    },
-    deleteText:{},
-
 
      // Mark Completed Styling
      markCompeteText:{
@@ -323,9 +329,30 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
     },
+
+
+    // DELETE!!!
+    deleteTaskWrapper:{
+        
     },
+    buttonContainer:{},
+    deleteText:{},
+
+    //ADD TASK
+    addTaskWrapper:{
+        width:60,
+        height:60,
+        backgroundColor:'#FFF',
+        borderRadius:60,
+        justifyContent:'center',
+        alignItems:'center',
+        borderColor:'#C0C0C0',
+        borderWidth:1, 
+    },
+    AddTaskText:{},
 
 
-   
 
+
+    },
 )
