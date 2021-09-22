@@ -71,12 +71,12 @@ export default function Home () {
             method: 'PATCH'
         }).then((response) => response.json())
         .then((json) => setUserData(json))
-    }
+    };
     
     useEffect(() => {
         loadTaskData(testUserId)
         loadUserData(testUserId)
-    }, []);
+    }, [tasks]);
 
     const TaskItem = ({item, onPress}) => (
         <View style={styles.taskItem}>
@@ -90,7 +90,7 @@ export default function Home () {
             <TouchableOpacity onPress={onPress}>
                 <Text style={styles.title}>{item.name}</Text>
                 <View style={styles.markCompletedIcon}>
-                <MaterialCommunityIcons
+                <Feather
                         name="check"
                          size={30 }
                         color={colors.primary}
