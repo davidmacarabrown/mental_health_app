@@ -23,6 +23,57 @@ export default function Home () {
         setTask(null);
       }
 
+      const loadTaskData = function(userId){
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
+        .then((response) => response.json())
+        .then((json) => setTasks(json))
+        .catch(() => alert("Tasks Unavailable"))
+        .finally(setTasksLoaded(true))
+    }
+
+    const loadUserData = function(userId){
+        fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/')
+        .then((response) => response.json())
+        .then((json)=> setUserData(json))
+        .catch(() => alert("User Not Found"))
+        .finally(setUserLoaded(true))
+    }
+
+    const deleteTask = function(userId, taskId){
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString()+ '/', {
+            method: 'DELETE'})
+        .then((response) => response.json())
+        .then((json) => setTasks(json))
+    }
+
+    const payload = {"name": "Go For A Walk",
+                    "description": "very hard task mate ello mate",
+                    "status": false}
+
+    const addTask = function(userId, payload){
+        
+        fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/tasks', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)})
+            .then((response) => response.json())
+            .then((json) => setTasks(json))
+    }
+
+    const markComplete = function(userId, taskId){
+
+        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString() + '/markcomplete', {
+            method: 'PATCH'
+        }).then((response) => response.json())
+        .then((json) => setUserData(json))
+        loadTaskData(testUserId)
+    };
+    
+    useEffect(() => {
+        loadTaskData(testUserId)
+        loadUserData(testUserId)
+    }, []);
+
     const TaskItem = ({item, onPress}) => (
         <View style={styles.taskItem}>
 
