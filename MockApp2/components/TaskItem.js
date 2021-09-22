@@ -27,7 +27,9 @@ const TaskItem = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.deleteTask}>
-                <Text>DELETE THIS MEME</Text>
+                <Feather name="x-circle"
+                        size={30 }
+                        color={"#b53833"}/>
         </TouchableOpacity>
     </View>
     </View>

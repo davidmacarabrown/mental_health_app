@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import colors from '../assets/colors/colors';
 import categoriesData from '../assets/data/categoriesData';
 import popularData from '../assets/data/popularData';
+import StartPage from './StartPage';
 import TaskList from './TaskList';
 
 
@@ -14,7 +15,6 @@ export default function Home () {
     const testUserId = 1
     
     const [tasks, setTasks] = useState([]);
-    const [tasksLoaded, setTasksLoaded] = useState(false);
     const [userData, setUserData] = useState({})
     const [userLoading, setuserLoading] = useState(true)
 
@@ -28,7 +28,6 @@ export default function Home () {
     .then((response) => response.json())
     .then((json) => setTasks(json))
     .catch((error) => alert(error))
-    .finally(setTasksLoaded(true))
     }
 
     const loadUserData = function(userId){
@@ -66,7 +65,7 @@ export default function Home () {
                 .then((response) => response.json())
                 .then((json) => setTasks(json))
 
-                setDisplayState(0)  
+                setDisplayState(1)  
             } else alert("Please complete all fields.")
             
     }
@@ -101,21 +100,31 @@ export default function Home () {
         loadUserData(testUserId)
     }, []);
 
+    const enterApp= () => {
+        console.log("entering the app")
+        setDisplayState(1)
+    }
     
     return(
         <View>
+            {displayState === 0 ? 
+            <View>
+                <StartPage enterApp={enterApp}/>
+            </View>: 
+            null}
+            
             <View> 
             {/* TASK LIST CONTAINER */}
             {/* IF tasks and user are loaded show the task list, else show "no tasks available" */}
-            {displayState === 0 && userLoading === false && tasks.length !== 0 ? 
+            {displayState === 1 && userLoading === false && tasks.length !== 0 ? 
                 <View>
                     <TaskList tasks={tasks} onPressFunction={markComplete} onPressFunctionTwo={deleteTask}/>
                 </View>
                 : null
             
-            }{displayState === 0 ?
+            }{displayState === 1 ?
             <View>
-            {tasks.length === 0 ? <Text>No Tasks Available...</Text> : null}
+            {tasks.length === 1 ? <Text>No Tasks Available...</Text> : null}
                 
                 <Button title="Add Task" onPress={() => setDisplayState(1)}/>
                 </View>
@@ -123,13 +132,13 @@ export default function Home () {
             
             </View>
 
-        {displayState === 1 && userLoading === false && tasks.length !== 0 ? 
+        {displayState === 2 && userLoading === false && tasks.length !== 0 ? 
         <View>
             <TextInput placeholder={"Task name"} style={styles.textBox} onChangeText={(value) => setNewTaskName(value)}/>
             <TextInput placeholder={"Task description"} style={styles.textBox} onChangeText={(value) => setNewTaskDescription(value)}/>
             <Button title="Save Task" onPress={()=> addTask(testUserId)}/>
             <Text> --</Text>
-            <Button title="Back" onPress={()=> setDisplayState(0)}/>
+            <Button title="Back" onPress={()=> setDisplayState(1)}/>
         </View>
         :
         <View></View>}

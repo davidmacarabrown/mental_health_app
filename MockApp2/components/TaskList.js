@@ -5,7 +5,7 @@ import TaskItem from './TaskItem';
 const TaskList =  (props) => {
 
     const renderItem = ({item}) => {
-        console.log("THIS IS THE ITEM", item, "££££££££££")
+
         return(
             <View>
             <TaskItem 
@@ -16,8 +16,7 @@ const TaskList =  (props) => {
             </View>
         )
     }
-    // console.log("++++++", props.tasks, "+++++++")
-    // console.log("%%%%%", props.tasks[0].description, "%%%%%%")
+
     return(
         <View>
                  <FlatList 
