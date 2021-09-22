@@ -1,11 +1,12 @@
 // this will be an object
 const colors = { 
-    background:'#F9F9FB',
-    textDark:'#313234',
-    primary:'#F5CA48',
-    secondary:'#F26C68',
+    background:'#5C58B6',
+    backgroundLight:'#FEFDF3',
+    textDark:'#2C2A50',
+    primary:'#B957CE',
+    secondary:'#69A2D6',
     textLight:'#CDCDCD',
-    price:'#E4723C',
+    price:'#3A4E93',
     white:'#FFF',
     black:'#000'
 
