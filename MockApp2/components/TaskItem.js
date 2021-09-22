@@ -3,18 +3,20 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../assets/colors/colors';
 
-export default function TaskItem ({item, onPress}) {
+const TaskItem = (props) => {
+
+    console.log("TASK ITEM PROPS:", props,)
     return(
         <View>
 
         {/* Today's Tasks  */}
   <View>
-    <Text>{item.name}</Text>
+    <Text>{props.item.name}</Text>
 
-        <TouchableOpacity onPress={onPress}>
-            <Text>{item.description}</Text>
+        <TouchableOpacity onPress={props.markComplete}>
+            <Text>{props.item.description}</Text>
             <View>
-            {!item.status ? <Feather
+            {!props.item.status ? <Feather
                     name="check"
                      size={30 }
                     color={colors.primary}
@@ -24,10 +26,12 @@ export default function TaskItem ({item, onPress}) {
             
             </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-        
+        <TouchableOpacity onPress={props.deleteTask}>
+                <Text>DELETE THIS MEME</Text>
         </TouchableOpacity>
     </View>
     </View>
     )
 }
+
+export default TaskItem;

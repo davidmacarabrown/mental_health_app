@@ -93,10 +93,10 @@ export default function Home () {
         <View>
         {userLoading === false && tasks.length !== 0 ? 
             <View>
-                <TaskList tasks={tasks} onPressFunction={markComplete}/>
+                <TaskList tasks={tasks} onPressFunction={markComplete} onPressFunctionTwo={deleteTask}/>
             </View>
             :
-            <Text>Loading...</Text>
+            <Text>No Tasks...</Text>
         }
         </View>
     );

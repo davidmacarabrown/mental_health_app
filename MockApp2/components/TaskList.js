@@ -10,13 +10,14 @@ const TaskList =  (props) => {
             <View>
             <TaskItem 
                 item={item}
-                onPress={()=> props.onPressFunction(1, item.id)}
+                markComplete={()=> props.onPressFunction(1, item.id)}
+                deleteTask={()=> props.onPressFunctionTwo(1, item.id)}
                 />
             </View>
         )
     }
-    console.log("++++++", props.tasks, "+++++++")
-    console.log("%%%%%", props.tasks[0].description, "%%%%%%")
+    // console.log("++++++", props.tasks, "+++++++")
+    // console.log("%%%%%", props.tasks[0].description, "%%%%%%")
     return(
         <View>
                  <FlatList 
