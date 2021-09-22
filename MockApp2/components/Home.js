@@ -209,7 +209,7 @@ export default function Home () {
            
 
         {userLoaded ? <View>
-                            <Text>{userData.username}</Text>
+                            <Text style={styles.userNameText}>{userData.username}</Text>
                             <Text>{userData.currentXp}</Text>
                             <Text>{userData.level}</Text>
                             <Text>{userData.health}</Text>
@@ -350,6 +350,22 @@ const styles = StyleSheet.create({
         borderWidth:1, 
     },
     AddTaskText:{},
+
+    // USERNAME
+    userNameText:{
+        fontSize:16,
+        fontFamily:'Raleway-ExtraBold',
+        flexDirection:'column',
+        flex:1,
+        justifyContent:'flex-start',
+        alignSelf:'flex-end',
+        position:'absolute',
+        bottom:35,
+        
+       
+ 
+
+    },
 
 
 
