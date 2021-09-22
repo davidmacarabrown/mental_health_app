@@ -21,6 +21,8 @@ export default function Home () {
     const [newTaskName, setNewTaskName] = useState(null)
     const [newTaskDescription, setNewTaskDescription] = useState(null)
 
+    const [displayState, setDisplayState] = useState(0)
+
     const loadTaskData = function(userId){
     fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
     .then((response) => response.json())
@@ -61,13 +63,17 @@ export default function Home () {
         if (newTaskName && newTaskDescription){
 
             fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/tasks', {
+
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(payload)})
+                body: JSON.stringify(payload)
+            })
                 .then((response) => response.json())
                 .then((json) => setTasks(json))
-                
-            }
+
+                setDisplayState(0)  
+            } else alert("Please complete all fields.")
+            
     }
 
     const markComplete = function(userId, taskId){
@@ -103,22 +109,36 @@ export default function Home () {
     
     return(
         <View>
-        {userLoading === false && tasks.length !== 0 ? 
+            <View> 
+            {/* TASK LIST CONTAINER */}
+            {/* IF tasks and user are loaded show the task list, else show "no tasks available" */}
+            {displayState === 0 && userLoading === false && tasks.length !== 0 ? 
+                <View>
+                    <TaskList tasks={tasks} onPressFunction={markComplete} onPressFunctionTwo={deleteTask}/>
+                </View>
+                : null
+            
+            }{displayState === 0 ?
             <View>
-                <TaskList tasks={tasks} onPressFunction={markComplete} onPressFunctionTwo={deleteTask}/>
+            {tasks.length === 0 ? <Text>No Tasks Available...</Text> : null}
+                
+                <Button title="Add Task" onPress={() => setDisplayState(1)}/>
+                </View>
+            : null}
+            
             </View>
-            :
-            <Text>No Tasks...</Text>
-        }
-        
+
+        {displayState === 1 && userLoading === false && tasks.length !== 0 ? 
         <View>
             <TextInput placeholder={"Task name"} style={styles.textBox} onChangeText={(value) => setNewTaskName(value)}/>
             <TextInput placeholder={"Task description"} style={styles.textBox} onChangeText={(value) => setNewTaskDescription(value)}/>
-
-            <TouchableOpacity onPress={()=> addTask(testUserId)}>
-                <Text>ADD THE TASK</Text>
-            </TouchableOpacity>
+            <Button title="Save Task" onPress={()=> addTask(testUserId)}/>
+            <Text> --</Text>
+            <Button title="Back" onPress={()=> setDisplayState(0)}/>
         </View>
+        :
+        <View></View>}
+
         </View>
     );
     
