@@ -1,6 +1,7 @@
 package com.codeclan.example.capstoneapi.controllers;
 
 import com.codeclan.example.capstoneapi.models.data.AppData;
+import com.codeclan.example.capstoneapi.models.user.Aggregate;
 import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.models.user.User;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
@@ -94,7 +95,7 @@ public class TaskController {
     //mark a task by complete by User ID and Task ID
 
     @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
-    public ResponseEntity<User> updateTask(
+    public ResponseEntity<Aggregate> updateTask(
 
             @PathVariable Long userId,
             @PathVariable Long taskId) {
@@ -144,7 +145,17 @@ public class TaskController {
         userRepository.save(foundUser);
         taskRepository.save(foundTask);
 
+        List<Task> updatedTasks = taskRepository.findByUserId(userId);
+
+        Aggregate completeResponse = new Aggregate(
+                foundUser.getUsername(),
+                foundUser.getLevel(),
+                foundUser.getCurrentXp(),
+                foundUser.getMaximumXp(),
+                foundUser.getHealth()
+        );
+        completeResponse.setTasks(updatedTasks);
         System.out.println("one task marked complete");
-        return new ResponseEntity<>(foundUser, HttpStatus.OK);
+        return new ResponseEntity<>(completeResponse, HttpStatus.OK);
     }
 }

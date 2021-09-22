@@ -58,14 +58,30 @@ export default function Home () {
             .then((json) => setTasks(json))
     }
 
+    //TODO: 
     const markComplete = function(userId, taskId){
+        
+        const filter = function(jsonObject){
+            const newUserData = {
+                "username": jsonObject.username,
+                "level": jsonObject.level,
+                "currentXp": jsonObject.currentXp,
+                "maximumXp": jsonObject.maximumXp,
+                "health": jsonObject.health
+            }
+
+            setUserData(newUserData)
+            setTasks(jsonObject.tasks)
+
+            console.log(userData)
+            console.log(tasks)
+        }
 
         fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString() + '/markcomplete', {
             method: 'PATCH'
         }).then((response) => response.json())
-        .then((json) => setUserData(json))
-        loadTaskData(testUserId)
-        //TODO: change response from backend
+        .then((json) => filter(json))
+        .catch((error) => alert(error)) 
     };
     
     useEffect(() => {
