@@ -6,7 +6,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import colors from '../assets/colors/colors';
 import categoriesData from '../assets/data/categoriesData';
 import popularData from '../assets/data/popularData';
-import TaskItem from './TaskItem';
+import TaskList from './TaskList';
+
 
 export default function Home () {
 
@@ -74,44 +75,44 @@ export default function Home () {
         loadUserData(testUserId)
     }, []);
 
-    const TaskItem = ({item, onPress}) => (
-        <View style={styles.taskItem}>
+    // const TaskItem = ({item, onPress}) => (
+    //     <View style={styles.taskItem}>
 
-            {/* Today's Tasks  */}
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's Tasks</Text>
+    //         {/* Today's Tasks  */}
+    //   <View style={styles.tasksWrapper}>
+    //     <Text style={styles.sectionTitle}>Today's Tasks</Text>
 
-        <View style={styles.items}></View>
+    //     <View style={styles.items}></View>
 
-            <TouchableOpacity onPress={onPress}>
-                <Text style={styles.title}>{item.name}</Text>
-                <View style={styles.markCompletedIcon}>
-                <Feather
-                        name="check"
-                         size={30 }
-                        color={colors.primary}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
+    //         <TouchableOpacity onPress={onPress}>
+    //             <Text style={styles.title}>{item.name}</Text>
+    //             <View style={styles.markCompletedIcon}>
+    //             <Feather
+    //                     name="check"
+    //                      size={30 }
+    //                     color={colors.primary}
+    //                 />
+    //             </View>
+    //         </TouchableOpacity>
+    //         <TouchableOpacity>
             
-            </TouchableOpacity>
-        </View>
-        </View>
-    )
+    //         </TouchableOpacity>
+    //     </View>
+    //     </View>
+    // )
     
         //MARK COMPLETED
-    const renderItem = ({item}) => {
-        const taskId = item.id;
-        return(
-            <View style={styles.markCompletedWrapper}>
-            <TaskItem 
-                item={item}
-                onPress={()=> markComplete(testUserId, taskId)}
-                />
-            </View>
-        )
-    }
+    // const renderItem = ({item}) => {
+    //     const taskId = item.id;
+    //     return(
+    //         <View>
+    //         <TaskItem 
+    //             item={item}
+    //             onPress={()=> markComplete(testUserId, taskId)}
+    //             />
+    //         </View>
+    //     )
+    // }
 
     return(
         // HEADER
@@ -188,33 +189,11 @@ export default function Home () {
                     </View>
                 </TouchableOpacity>
 
-           
-                <Text>-----------------------</Text>
-                <Text>{tasks.length.toString()}</Text>
-                <Text>-----------------------</Text>
                
-                <FlatList 
-                    data={tasks}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                />
+                <TaskList props={testUserId, tasks, markComplete}/>
             </View>
         
-        }   
-                <Text>-----------------------</Text>
-           
-
-        {userLoaded ? <View>
-                            <Text style={styles.userNameText}>{userData.username}</Text>
-                            <Text>{userData.currentXp}</Text>
-                            <Text>{userData.level}</Text>
-                            <Text>{userData.health}</Text>
-                        </View>
-                        :
-                        <View>
-                            <Text>NO USER LOADED</Text>
-                        </View> 
-                        }
+        }  
                         
         </View>
         </ScrollView>     
