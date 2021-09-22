@@ -1,26 +1,27 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../assets/colors/colors';
 
 export default function TaskItem ({item, onPress}) {
     return(
-        <View style={styles.taskItem}>
+        <View>
 
         {/* Today's Tasks  */}
-  <View style={styles.tasksWrapper}>
-    <Text style={styles.sectionTitle}>{item.name}</Text>
-
-    <View style={styles.items}></View>
+  <View>
+    <Text>{item.name}</Text>
 
         <TouchableOpacity onPress={onPress}>
-            <Text style={styles.title}>{item.name}</Text>
-            <View style={styles.markCompletedIcon}>
-            <Feather
+            <Text>{item.description}</Text>
+            <View>
+            {!item.status ? <Feather
                     name="check"
                      size={30 }
                     color={colors.primary}
-                />
+                /> :
+                <Text>complete!</Text>
+                }
+            
             </View>
         </TouchableOpacity>
         <TouchableOpacity>

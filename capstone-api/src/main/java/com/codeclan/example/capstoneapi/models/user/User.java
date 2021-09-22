@@ -109,4 +109,5 @@ public class User {
     public void increaseXp(int amount) {
         currentXp += amount;
     }
+
 }

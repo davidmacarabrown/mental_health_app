@@ -1,25 +1,32 @@
-import {View, Text, FlatList} from 'react-native';
+import React from 'react';
+import {View, FlatList, Text} from 'react-native';
 import TaskItem from './TaskItem';
 
-export default function TaskList ({userId, tasks, onPressfunction}){
+const TaskList =  (props) => {
 
     const renderItem = ({item}) => {
-        const taskId = item.id;
+        console.log("THIS IS THE ITEM", item, "££££££££££")
         return(
             <View>
             <TaskItem 
                 item={item}
-                onPress={()=> onPressFunction(userId, taskId)}
+                onPress={()=> props.onPressFunction(1, item.id)}
                 />
             </View>
         )
     }
-
+    console.log("++++++", props.tasks, "+++++++")
+    console.log("%%%%%", props.tasks[0].description, "%%%%%%")
     return(
-                <FlatList 
-                    data={tasks}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                />
+        <View>
+                 <FlatList 
+                     data={props.tasks}
+                     renderItem={renderItem}
+                     keyExtractor={(item) => item.id}
+                 />
+
+        </View>
     )
 }
+
+export default TaskList;

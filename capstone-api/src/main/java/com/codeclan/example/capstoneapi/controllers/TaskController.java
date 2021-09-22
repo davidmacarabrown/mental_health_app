@@ -143,6 +143,7 @@ public class TaskController {
         //updated user and task are saved
         userRepository.save(foundUser);
         taskRepository.save(foundTask);
+
         System.out.println("one task marked complete");
         return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }

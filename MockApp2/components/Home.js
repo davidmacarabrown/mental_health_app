@@ -16,28 +16,24 @@ export default function Home () {
     const [tasks, setTasks] = useState([]);
     const [tasksLoaded, setTasksLoaded] = useState(false);
     const [userData, setUserData] = useState({})
-    const [userLoaded, setUserLoaded] = useState(false)
+    const [userLoading, setuserLoading] = useState(true)
 
-    const handleAddTask = () => {
-        Keyboard.dismiss();
-        setTaskItems([...tasks, tasksLoaded])
-        setTask(null);
-      }
 
-      const loadTaskData = function(userId){
-        fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
-        .then((response) => response.json())
-        .then((json) => setTasks(json))
-        .catch(() => alert("Tasks Unavailable"))
-        .finally(setTasksLoaded(true))
+
+    const loadTaskData = function(userId){
+    fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
+    .then((response) => response.json())
+    .then((json) => setTasks(json))
+    .catch((error) => alert(error))
+    .finally(setTasksLoaded(true))
     }
 
     const loadUserData = function(userId){
         fetch('http://10.0.2.2:8080/users/' + userId.toString() + '/')
         .then((response) => response.json())
         .then((json)=> setUserData(json))
-        .catch(() => alert("User Not Found"))
-        .finally(setUserLoaded(true))
+        .catch((error) => alert(error))
+        .finally(setuserLoading(false))
     }
 
     const deleteTask = function(userId, taskId){
@@ -49,7 +45,8 @@ export default function Home () {
 
     const payload = {"name": "Go For A Walk",
                     "description": "very hard task mate ello mate",
-                    "status": false}
+                    "status": false
+                }
 
     const addTask = function(userId, payload){
         
@@ -68,6 +65,7 @@ export default function Home () {
         }).then((response) => response.json())
         .then((json) => setUserData(json))
         loadTaskData(testUserId)
+        //TODO: change response from backend
     };
     
     useEffect(() => {
@@ -75,129 +73,17 @@ export default function Home () {
         loadUserData(testUserId)
     }, []);
 
-    // const TaskItem = ({item, onPress}) => (
-    //     <View style={styles.taskItem}>
-
-    //         {/* Today's Tasks  */}
-    //   <View style={styles.tasksWrapper}>
-    //     <Text style={styles.sectionTitle}>Today's Tasks</Text>
-
-    //     <View style={styles.items}></View>
-
-    //         <TouchableOpacity onPress={onPress}>
-    //             <Text style={styles.title}>{item.name}</Text>
-    //             <View style={styles.markCompletedIcon}>
-    //             <Feather
-    //                     name="check"
-    //                      size={30 }
-    //                     color={colors.primary}
-    //                 />
-    //             </View>
-    //         </TouchableOpacity>
-    //         <TouchableOpacity>
-            
-    //         </TouchableOpacity>
-    //     </View>
-    //     </View>
-    // )
     
-        //MARK COMPLETED
-    // const renderItem = ({item}) => {
-    //     const taskId = item.id;
-    //     return(
-    //         <View>
-    //         <TaskItem 
-    //             item={item}
-    //             onPress={()=> markComplete(testUserId, taskId)}
-    //             />
-    //         </View>
-    //     )
-    // }
-
     return(
-        // HEADER
-        <View style={styles.container}>
-        
-        <ScrollView>
-        <SafeAreaView>
-            <View style={styles.headerWrapper}>
-                <Image 
-                key={Date.now()}
-                source={require('../assets/images/AvatarGirl1.jpeg')} 
-                style={styles.profileImage}/>
-               
-
-
-            <Feather name="menu" size={24} color={colors.textDark}/>
+        <View>
+        {userLoading === false && tasks.length !== 0 ? 
+            <View>
+                <TaskList tasks={tasks} onPressFunction={markComplete}/>
             </View>
-        </SafeAreaView>
-
-        <KeyboardAvoidingView
-      behavior = {Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.writeTaskWrapper}
-      >
-     <TextInput style={styles.input} placeholder={'Write a task'} value={tasksLoaded} onChangeText={text => setTask(text)}/>
-        
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-
-          </View>
-
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-
-            {/* DELETED TASK BOX*/}
-
-        <View style={styles.main}>
-        {userLoaded === false || tasks.length === 0 ?  <Text>LOADING...</Text> : 
-
-            <View style={styles.deleteTaskWrapper}>
-                <TouchableOpacity style={styles.buttonContainer} onPress={()=> deleteTask(testUserId, 1)}>
-                    <Text style={styles.deleteText}></Text>
-                      <MaterialCommunityIcons
-                        name="delete"
-                         size={30}
-                        color={colors.primary}
-                    />
-
-                </TouchableOpacity>
-
-           
-                    {/* MARK COMPLETED BOX */}
-                <TouchableOpacity 
-                style={styles.buttonContainer} 
-                onPress={()=> markComplete(testUserId, 1)}>
-                    <Text style={styles.markCompeteText}></Text>
-                    <MaterialCommunityIcons
-                        name="check"
-                         size={30}
-                        color={colors.primary}
-                    />
-                    <View style={styles.addWrapper}>
-
-          </View>
-                </TouchableOpacity>
-
-                <Text>-----------------------</Text>
-               
-
-                <TouchableOpacity onPress={()=> addTask(testUserId, payload)}>
-                    <Text>Add Task</Text>
-                    <View style={styles.addTaskWrapper}>
-                    <Text style={styles.AddTaskText}>+</Text>
-                    </View>
-                </TouchableOpacity>
-
-               
-                <TaskList props={testUserId, tasks, markComplete}/>
-            </View>
-        
-        }  
-                        
+            :
+            <Text>Loading...</Text>
+        }
         </View>
-        </ScrollView>     
-    </View> 
     );
     
 };
