@@ -56,11 +56,15 @@ public class TaskController {
 
     //delete a task by its ID
 
-    @DeleteMapping(value = "users/{id}/tasks/{id}")
-    public ResponseEntity<Long> deleteTaskByName(@PathVariable Long id) {
-        taskRepository.deleteById(id);
+    @DeleteMapping(value = "users/{userId}/tasks/{taskId}")
+    public ResponseEntity<List<Task>> deleteTaskByName(
+            @PathVariable Long userId,
+            @PathVariable Long taskId) {
+        taskRepository.deleteById(taskId);
+
         System.out.println("one task deleted");
-        return new ResponseEntity<>(id, HttpStatus.ACCEPTED);
+
+        return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.ACCEPTED);
     }
 
     //update a tasks details (name/description)
