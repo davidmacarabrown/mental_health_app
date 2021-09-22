@@ -46,11 +46,6 @@ export default function Home () {
         .then((json) => setTasks(json))
     }
 
-    const resetFields = function(){
-        setNewTaskName(null)
-        setNewTaskDescription(null)
-    }
-
     const addTask = function(userId){
 
         console.log(newTaskName, newTaskDescription)
