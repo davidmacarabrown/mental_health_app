@@ -110,6 +110,7 @@ export default function Home () {
             :
             <Text>No Tasks...</Text>
         }
+        
         <View>
             <TextInput placeholder={"Task name"} style={styles.textBox} onChangeText={(value) => setNewTaskName(value)}/>
             <TextInput placeholder={"Task description"} style={styles.textBox} onChangeText={(value) => setNewTaskDescription(value)}/>
