@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, Text} from 'react-native';
+import {StyleSheet, View, FlatList, Text} from 'react-native';
 import TaskItem from './TaskItem';
 
 const TaskList =  (props) => {
@@ -18,7 +18,7 @@ const TaskList =  (props) => {
     }
 
     return(
-        <View>
+        <View style={Styles.tasksWrapper}>
                  <FlatList 
                      data={props.tasks}
                      renderItem={renderItem}
@@ -28,5 +28,21 @@ const TaskList =  (props) => {
         </View>
     )
 }
+
+const Styles = StyleSheet.create({
+
+    tasksWrapper:{
+        paddingTop: 80,
+        paddingHorizontal: 20,
+    },
+    sectionTitle:{
+        fontFamily:'Raleway-Bold',
+        fontSize: 24,
+       
+    },
+    items:{
+        marginTop:30,
+    },
+})
 
 export default TaskList;

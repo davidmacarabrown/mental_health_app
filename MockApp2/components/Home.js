@@ -124,9 +124,10 @@ export default function Home () {
             
             }{displayState === 1 ?
             <View>
-            {tasks.length === 1 ? <Text>No Tasks Available...</Text> : null}
+                {tasks.length === 0 ? 
+                    <Text>No Tasks Available...</Text> : null}
                 
-                <Button title="Add Task" onPress={() => setDisplayState(1)}/>
+                <Button title="Add Task" onPress={() => setDisplayState(1)} style={styles.addTaskButton}/>
                 </View>
             : null}
             
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
         flex:1,
        
     },
+    
     headerWrapper:{
         flexDirection:'row',
         justifyContent:'space-between',
