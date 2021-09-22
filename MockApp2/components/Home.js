@@ -23,17 +23,7 @@ export default function Home () {
     const [userData, setUserData] = useState({})
     const [userLoaded, setUserLoaded] = useState(false)
 
-<<<<<<< HEAD
-    const handleAddTask = () => {
-        Keyboard.dismiss();
-        setTaskItems([...tasks, tasksLoaded])
-        setTask(null);
-      }
-
-      const loadTaskData = function(userId){
-=======
     const loadTaskData = function(userId){
->>>>>>> a512585de612f23670bfa4f55123f57ae481e255
         fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks')
         .then((response) => response.json())
         .then((json) => setTasks(json))
