@@ -66,7 +66,13 @@ export default function Home () {
                 .then((json) => setTasks(json))
 
                 setDisplayState(1)  
-            } else alert("Please complete all fields.")
+                setNewTaskDescription(null)
+                setNewTaskName(null)
+
+            } else {
+                alert("Please complete all fields.")
+            }
+            
             
     }
 
@@ -106,7 +112,7 @@ export default function Home () {
     }
     
     return(
-        <View>
+        <ScrollView>
             {displayState === 0 ? 
             <View>
                 <StartPage enterApp={enterApp}/>
@@ -127,7 +133,7 @@ export default function Home () {
                 {tasks.length === 0 ? 
                     <Text>No Tasks Available...</Text> : null}
                 
-                <Button title="Add Task" onPress={() => setDisplayState(1)} style={styles.addTaskButton}/>
+                <Button title="Add Task" onPress={() => setDisplayState(2)} style={styles.addTaskButton}/>
                 </View>
             : null}
             
@@ -144,7 +150,7 @@ export default function Home () {
         :
         <View></View>}
 
-        </View>
+        </ScrollView>
     );
     
 };
@@ -156,7 +162,7 @@ const styles = StyleSheet.create({
         flex:1,
        
     },
-    
+
     headerWrapper:{
         flexDirection:'row',
         justifyContent:'space-between',
