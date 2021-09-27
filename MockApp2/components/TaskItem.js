@@ -12,12 +12,12 @@ const TaskItem = (props) => {
                 <View style={styles.taskItem}>
                     <View>
                     <Text style={styles.taskName}>{props.item.name}</Text>
-                        <Text >{props.item.description}</Text>
+                        <Text style={styles.descriptionItem} >{props.item.description}</Text>
                     </View>
                     
                         
 
-                        <View>
+                        <View style={styles.tickItem}>
                         {!props.item.status ?
                         <TouchableOpacity onPress={props.markComplete} style={styles.taskButton}> 
                             <Feather
@@ -51,7 +51,31 @@ const styles = StyleSheet.create({
         margin: 5,
         flex: 1,
         padding: 20,
-        backgroundColor:colors.backgroundLight,
+        backgroundColor:colors.primary,
+        borderRadius:10,
+       
+
+    },
+
+    taskName:{
+        color:colors.white,
+        fontFamily:'Raleway-Bold',
+        fontSize:25,
+
+    },
+
+    descriptionItem:{
+        color:colors.white,
+        fontFamily:'Raleway-Bold',
+        fontSize:25,
+    },
+
+    tickItem:{
+        position:'absolute',
+        right:0,
+        margin:10,
+        bottom:0,
+
     },
 
     

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, FlatList, Text} from 'react-native';
+import colors from '../assets/colors/colors';
 import TaskItem from './TaskItem';
 
 const TaskList =  (props) => {
@@ -34,6 +35,9 @@ const Styles = StyleSheet.create({
     tasksWrapper:{
         paddingTop: 80,
         paddingHorizontal: 20,
+        borderRadius:10,
+        color:colors.primary,
+        
     },
     sectionTitle:{
         fontFamily:'Raleway-Bold',
