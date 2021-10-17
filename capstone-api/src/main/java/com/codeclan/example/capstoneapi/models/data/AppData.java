@@ -27,40 +27,20 @@ public class AppData {
         return levelOneXp;
     }
 
-    public void setLevelOneXp(int levelOneXp) {
-        this.levelOneXp = levelOneXp;
-    }
-
     public double getXpMultiplier() {
         return xpMultiplier;
-    }
-
-    public void setXpMultiplier(double xpMultiplier) {
-        this.xpMultiplier = xpMultiplier;
     }
 
     public double getXpReward() {
         return xpReward;
     }
 
-    public void setXpReward(double xpReward) {
-        this.xpReward = xpReward;
-    }
-
     public int getStartingHealth() {
         return startingHealth;
     }
 
-    public void setStartingHealth(int startingHealth) {
-        this.startingHealth = startingHealth;
-    }
-
     public double getHealthMultiplier() {
         return healthMultiplier;
-    }
-
-    public void setHealthMultiplier(double healthMultiplier) {
-        this.healthMultiplier = healthMultiplier;
     }
 
     public double calculateNextLevelXP(double currentXp){
