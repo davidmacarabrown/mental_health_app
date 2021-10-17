@@ -2,15 +2,15 @@ package com.codeclan.example.capstoneapi.models.data;
 
 public class AppData {
     
-    private int levelOneXp;
+    private static int levelOneXp = 10;
     
-    private double xpMultiplier;
+    private static double xpMultiplier = 1.2;
     
-    private double xpReward;
+    private static double xpReward = 1;
 
-    private int startingHealth;
+    private static int startingHealth = 100;
 
-    private double healthMultiplier;
+    private static double healthMultiplier = 1.1;
 
 
     public AppData( int levelOneXp, double xpMultiplier, double xpReward, int startingHealth, double healthMultiplier) {

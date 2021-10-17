@@ -1,4 +1,6 @@
-package com.codeclan.example.capstoneapi.models.user;
+package com.codeclan.example.capstoneapi.models.services;
+
+import com.codeclan.example.capstoneapi.models.user.Task;
 
 import java.util.ArrayList;
 import java.util.List;

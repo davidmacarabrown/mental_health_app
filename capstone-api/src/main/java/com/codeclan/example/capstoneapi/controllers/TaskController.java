@@ -1,7 +1,7 @@
 package com.codeclan.example.capstoneapi.controllers;
 
 import com.codeclan.example.capstoneapi.models.data.AppData;
-import com.codeclan.example.capstoneapi.models.user.Aggregate;
+import com.codeclan.example.capstoneapi.models.services.Aggregate;
 import com.codeclan.example.capstoneapi.models.user.Task;
 import com.codeclan.example.capstoneapi.models.user.User;
 import com.codeclan.example.capstoneapi.repositories.TaskRepository;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -37,7 +36,7 @@ public class TaskController {
 
     @GetMapping(value = "/users/{id}/tasks")
     public ResponseEntity<List<Task>> getTasks(@PathVariable Long id){
-        System.out.println("task data retrieved");
+        System.out.printf("Task data retrieved User ID: %d %n", id);
         return new ResponseEntity<>(taskRepository.findByUserId(id), HttpStatus.OK);
     }
 
@@ -53,7 +52,7 @@ public class TaskController {
         newTask.markIncomplete();
         taskRepository.save(newTask);
 
-        System.out.println("new task saved");
+        System.out.printf("New task saved User ID: %d %n", userId);
         return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.CREATED);
     }
 
@@ -65,7 +64,7 @@ public class TaskController {
             @PathVariable Long taskId) {
         taskRepository.deleteById(taskId);
 
-        System.out.println("one task deleted");
+        System.out.printf("User ID: %d Task: %d deleted %n", userId, taskId);
 
         return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.ACCEPTED);
     }
@@ -89,7 +88,7 @@ public class TaskController {
 
         //task is saved and then returned
         taskRepository.save(foundTask);
-        System.out.println("one task updated");
+        System.out.printf("User ID: %d Task: %d updated %n", userId, taskId);
         return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.ACCEPTED);
     }
 
@@ -156,7 +155,7 @@ public class TaskController {
                 foundUser.getHealth()
         );
         completeResponse.setTasks(updatedTasks);
-        System.out.println("one task marked complete");
+        System.out.printf("User ID: %d Task: %d marked complete %n", userId, taskId);
         return new ResponseEntity<>(completeResponse, HttpStatus.OK);
     }
 }
