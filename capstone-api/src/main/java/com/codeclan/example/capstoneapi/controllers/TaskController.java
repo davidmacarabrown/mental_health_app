@@ -95,7 +95,7 @@ public class TaskController {
     //mark a task by complete by User ID and Task ID
 
     @PatchMapping(value = "/users/{userId}/tasks/{taskId}/markcomplete")
-    public ResponseEntity<Aggregate> updateTask(
+    public ResponseEntity<Aggregate> markComplete(
 
             @PathVariable Long userId,
             @PathVariable Long taskId) {
@@ -145,17 +145,14 @@ public class TaskController {
         userRepository.save(foundUser);
         taskRepository.save(foundTask);
 
-        List<Task> updatedTasks = taskRepository.findByUserId(userId);
+        List<Task> foundTasks = taskRepository.findByUserId(userId);
 
-        Aggregate completeResponse = new Aggregate(
-                foundUser.getUsername(),
-                foundUser.getLevel(),
-                foundUser.getCurrentXp(),
-                foundUser.getMaximumXp(),
-                foundUser.getHealth()
+        Aggregate aggregate = new Aggregate(
+                foundUser,
+                foundTasks
         );
-        completeResponse.setTasks(updatedTasks);
+
         System.out.printf("User ID: %d Task: %d marked complete %n", userId, taskId);
-        return new ResponseEntity<>(completeResponse, HttpStatus.OK);
+        return new ResponseEntity<>(aggregate, HttpStatus.OK);
     }
 }

@@ -46,6 +46,7 @@ export default function Home () {
             method: 'DELETE'})
         .then((response) => response.json())
         .then((json) => setTasks(json))
+        .catcn((error) => alert(error))
     }
 
     const addTask = function(userId){
@@ -75,33 +76,20 @@ export default function Home () {
             } else {
                 alert("Please complete all fields.")
             }
-            
-            
     }
 
     const markComplete = function(userId, taskId){
-        
-        const filter = function(jsonObject){
-            const newUserData = {
-                "username": jsonObject.username,
-                "level": jsonObject.level,
-                "currentXp": jsonObject.currentXp,
-                "maximumXp": jsonObject.maximumXp,
-                "health": jsonObject.health
-            }
 
-            setUserData(newUserData)
-            setTasks(jsonObject.tasks)
-
-            console.log(userData)
-            console.log(tasks)
+        const filter = (data) => {
+            setUserData(data.user)
+            setTasks(data.tasks)
         }
 
         fetch('http://10.0.2.2:8080/users/'+ userId.toString() +'/tasks/' + taskId.toString() + '/markcomplete', {
             method: 'PATCH'
         }).then((response) => response.json())
         .then((json) => filter(json))
-        .catch((error) => alert(error)) 
+        .catch((error) => alert(error))
     };
     
     useEffect(() => {
@@ -136,11 +124,11 @@ export default function Home () {
                 
                     
                     <View style={styles.profileWrapper}>
-                        <Text style={styles.textLevel}>1</Text>
+                        <Text style={styles.textLevel}>{userData.level}</Text>
                         <Text style={styles.textLevelBox}>Level</Text>
                         </View>
                         <View style={styles.profileWrapper2}>
-                        <Text style={styles.textHealth}>200</Text>
+                        <Text style={styles.textHealth}>{userData.health}</Text>
                         <Text style={styles.textHealthBox}>Health</Text>
                         </View>
                    
