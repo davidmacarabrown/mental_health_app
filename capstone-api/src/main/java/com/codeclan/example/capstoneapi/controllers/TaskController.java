@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -43,7 +44,7 @@ public class TaskController {
     //post a new task to the User by their ID
 
     @PostMapping(value = "/users/{userId}/tasks")
-    public ResponseEntity<List<Task>> saveTask(
+    public ResponseEntity<?> saveTask(
             @PathVariable Long userId,
             @RequestBody Task newTask){
 
@@ -53,7 +54,7 @@ public class TaskController {
         taskRepository.save(newTask);
 
         System.out.printf("New task saved User ID: %d %n", userId);
-        return new ResponseEntity<>(taskRepository.findByUserId(userId), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     //delete a task by its ID
